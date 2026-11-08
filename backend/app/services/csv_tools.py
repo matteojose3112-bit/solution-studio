@@ -3,6 +3,7 @@
 import csv
 import io
 import re
+import re
 from datetime import date, datetime
 from decimal import Decimal, InvalidOperation
 from collections import Counter
@@ -180,3 +181,32 @@ def serialize_csv(table: CSVTable) -> str:
     writer.writerow(table.headers)
     writer.writerows(table.rows)
     return output.getvalue()
+
+
+def transform_table(table: CSVTable, *, rename_columns: dict[str, str] | None = None, normalize_headers: bool = False, keep_columns: list[str] | None = None) -> CSVTable:
+    """Apply explicit, validated column transformations without changing cell values."""
+    rename_columns = rename_columns or {}
+    if not isinstance(rename_columns, dict): raise CSVProcessingError("Column renames must be a JSON object.")
+    unknown = set(rename_columns) - set(table.headers)
+    if unknown: raise CSVProcessingError(f"Unknown columns in rename mapping: {', '.join(sorted(unknown))}.")
+    if any(not isinstance(value, str) or not value.strip() for value in rename_columns.values()): raise CSVProcessingError("New column names must be non-empty strings.")
+    headers = [rename_columns.get(name, name).strip() for name in table.headers]
+    if normalize_headers:
+        normalized, used = [], Counter()
+        for index, name in enumerate(headers, 1):
+            base = re.sub(r"[^a-z0-9]+", "_", name.casefold()).strip("_") or f"column_{index}"
+            used[base] += 1
+            normalized.append(base if used[base] == 1 else f"{base}_{used[base]}")
+        headers = normalized
+    if len(set(headers)) != len(headers): raise CSVProcessingError("Column names must be unique after renaming.")
+    if keep_columns is not None:
+        if not isinstance(keep_columns, list) or any(not isinstance(name, str) for name in keep_columns): raise CSVProcessingError("Selected columns must be a list of column names.")
+        if len(set(keep_columns)) != len(keep_columns): raise CSVProcessingError("A column can only be selected once.")
+        missing = [name for name in keep_columns if name not in headers]
+        if missing: raise CSVProcessingError(f"Unknown selected columns: {', '.join(missing)}.")
+        indexes = [headers.index(name) for name in keep_columns]
+        headers = [headers[i] for i in indexes]
+        rows = [[row[i] for i in indexes] for row in table.rows]
+    else: rows = [list(row) for row in table.rows]
+    if not headers: raise CSVProcessingError("Select at least one column to export.")
+    return CSVTable(headers, rows, table.delimiter)
