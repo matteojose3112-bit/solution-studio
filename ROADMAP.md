@@ -1,61 +1,61 @@
 # Roadmap
 
-Items are marked complete only after implementation. Planned studio cards in the interface are not functional modules.
+Items are marked complete only after implementation and automated verification.
 
 ## Phase 0 — Repository foundation
 - [x] Establish public repository and license
-- [x] Define project purpose and modular scope
-- [x] Document initial architecture and delivery principles
-- [x] Add development environment and local run instructions
-- [x] Add baseline CI and test configuration
+- [x] Define project purpose, architecture and delivery principles
+- [x] Add local setup instructions, CI and test configuration
 
 ## Phase 1 — Core application foundation
-- [x] Create Python backend using FastAPI
-- [x] Add health and version endpoints
-- [x] Establish initial application configuration
-- [x] Create lightweight JavaScript frontend
-- [x] Connect frontend to backend
-- [x] Serve frontend and API from one local server
-- [x] Add initial automated tests
+- [x] Create FastAPI backend and lightweight JavaScript frontend
+- [x] Add health/version endpoints and same-origin hosting
+- [x] Add automated tests
 
-## Phase 2 — Document and data tools
-- [x] Build initial CSV upload and file-validation utilities (CSV and XLSX, 5 MB limit)
-- [ ] Add document metadata and text extraction
-- [x] Add CSV inspection, preview and column statistics
-- [x] Add CSV cleanup: trim whitespace, remove blank rows and duplicate rows
-- [x] Support cleaned CSV downloads
-- [x] Add synthetic CSV tests
-- [x] Add initial XLSX inspection, cleanup and export support
-- [x] Add initial column type inference and missing/inconsistent-value warnings
-- [x] Add initial data validation, type inference and column transformations (rename, normalize, select and reorder)
-- [ ] Add richer data profiling, type conversion and analysis
+## Phase 2 — Data Studio
+- [x] CSV/XLSX upload, validation, inspection and preview
+- [x] Infer column types and report missing/inconsistent values
+- [x] Clean whitespace, blank rows and duplicates
+- [x] Rename, normalize, select and reorder columns
+- [x] Export cleaned/transformed CSV and XLSX
+- [ ] Add richer profiling, explicit type conversion and analysis
 
-## Phase 3 — Research tools
-- [ ] Create source-aware research workflow
-- [ ] Generate structured summaries and reports
-- [ ] Track source references and uncertainty
-- [ ] Add optional AI provider adapter
-- [ ] Require review for unverified or consequential output
+## Phase 3 — Research Studio
+- [x] Build source-aware reports from user-supplied notes
+- [x] Generate executive summaries, key points and linked references
+- [x] Explain verification limits and uncertainty
+- [x] Export reports as Markdown
+- [ ] Add optional web research and AI-assisted synthesis adapters
 
-## Phase 4 — Workflow automation
-- [ ] Define reusable workflow patterns
-- [ ] Add webhook and API integration examples
-- [ ] Demonstrate approval and notification steps
-- [ ] Document optional n8n integration
-- [ ] Add retries, logging and failure handling
+## Phase 4 — Document Studio
+- [x] Extract text and metadata from PDF, DOCX and TXT
+- [x] Add upload size, PDF page, DOCX expansion and output-length limits
+- [x] Add downloadable text export and automated tests
+- [ ] Add PDF/DOCX conversion and structured transformations
 
-## Phase 5 — Custom development demonstrations
-- [ ] Add reusable patterns for small business tools
-- [ ] Publish at least two working example applications
-- [ ] Document customization and handoff process
+## Phase 5 — Automation Studio
+- [x] Define allowlisted workflow steps and ordered execution
+- [x] Add preview, approval checkpoint and execution logs
+- [x] Export workflow definitions and output
+- [ ] Add optional webhook/API connectors and n8n integration
+- [ ] Add persistent schedules, notifications and retry queues
 
-## Phase 6 — Portfolio readiness
+## Phase 6 — Development Studio
+- [x] Generate responsive static business website starters
+- [x] Package HTML, CSS and setup notes as a downloadable ZIP
+- [x] Validate inputs and escape user-supplied content
+- [ ] Add reusable dashboard and internal-tool templates
+- [ ] Document client customization and handoff
+
+## Phase 7 — Portfolio readiness
+- [x] Add CI syntax checks for every frontend JavaScript module
 - [ ] Complete automated tests and CI for all modules
 - [ ] Review security, privacy and dependency risks
-- [ ] Add screenshots and demonstration data
-- [ ] Publish setup and user documentation
-- [ ] Record known limitations and deployment options
+- [ ] Add screenshots and synthetic demonstration data
+- [ ] Perform end-to-end browser testing
+- [ ] Publish setup, user documentation and deployment options
+- [ ] Record known limitations and versioned releases
 
 ## Scope rule
 
-Prioritize a small number of complete, reliable demonstrations over a large collection of unfinished features. Paid APIs and hosted services should remain optional where practical.
+Prioritize complete, reliable demonstrations over feature counts. Keep paid APIs and hosted services optional where practical.

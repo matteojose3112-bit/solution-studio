@@ -1,0 +1,17 @@
+#research-studio { margin: 0 0 100px; padding: 34px; border: 1px solid #ffffff1b; border-radius: 14px; background: linear-gradient(145deg, #1a293d, #142033); }
+#research-studio .data-description { max-width: 760px; }
+.research-form { display: grid; gap: 18px; margin-top: 24px; }
+.research-form label { display: grid; gap: 8px; color: #c2cfdd; font-size: 12px; font-weight: 650; }
+.research-form input, .research-form textarea { width: 100%; border: 1px solid #ffffff25; border-radius: 7px; padding: 12px; color: #edf2f8; background: #0f1a2a; font: inherit; font-size: 13px; }
+.research-form textarea { resize: vertical; line-height: 1.6; }
+.research-source { display: grid; gap: 14px; margin: 0; padding: 18px; border: 1px solid #ffffff1c; border-radius: 9px; }
+.research-source legend { padding: 0 8px; color: #9ce7ca; font-size: 12px; font-weight: 750; }
+.research-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.text-button { width: fit-content; padding: 7px 0; border: 0; color: #9ce7ca; background: transparent; cursor: pointer; font: inherit; font-size: 12px; }
+.research-message { color: #aebdce; font-size: 12px; }
+.research-report { margin-top: 28px; padding-top: 24px; border-top: 1px solid #ffffff20; color: #c4d0df; line-height: 1.7; }
+.research-report h3 { color: #edf2f8; font-size: 23px; }
+.research-report h4 { margin: 22px 0 7px; color: #9ce7ca; }
+.research-report li { margin: 7px 0; }
+.research-report a { color: #9ce7ca; text-decoration: underline; overflow-wrap: anywhere; }
+@media (max-width: 600px) { #research-studio { padding: 22px; } }

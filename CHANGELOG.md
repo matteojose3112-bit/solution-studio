@@ -1,23 +1,23 @@
 # Changelog
 
-All notable project changes are recorded here. Only implemented and verified changes belong in this file.
+Only implemented and verified changes belong in this file.
 
 ## [Unreleased]
 
 ### Added
-- Data Studio supports CSV and XLSX upload, inspection, column statistics, inferred column types, missing/inconsistent-value warnings, preview, cleanup, explicit column renaming, snake_case header normalization, column selection/reordering and cleaned/transformed-file downloads. XLSX processing uses the first worksheet and cached formula values; formulas are not evaluated.
-- CSV/XLSX safeguards: 5 MB limit, row and column caps and unique header normalization; CSV includes UTF-8 and malformed-row validation, plus spreadsheet-formula neutralization on CSV export.
-- Automated tests for CSV and XLSX parsing, cleanup, upload endpoints, transformation validation and workbook exports.
-- FastAPI application with health and version endpoints.
-- JavaScript landing interface introducing the five planned studios.
-- Same-origin static frontend hosting through FastAPI.
-- Initial backend tests for API routes and frontend delivery.
-- GitHub Actions workflow to install dependencies and run tests.
-- Local setup and run instructions.
+- Research Studio source-note briefs with linked references, key points, limitations and Markdown export.
+- Document Studio in-memory extraction for PDF, DOCX and UTF-8 TXT, including metadata and downloadable text output.
+- Data Studio CSV/XLSX inspection, validation, cleanup, column transformations and exports.
+- Automation Studio allowlisted text workflows with ordered steps, preview, approval checkpoint, logs, output download and JSON export.
+- Development Studio static business website generator with validated inputs, escaped content and ZIP export containing HTML, CSS and setup notes.
+- Automated backend service and API tests for the implemented studios.
 
 ### Changed
-- Updated README and workspace guides to reflect the runnable foundation.
-- Marked repository and core application foundation tasks complete in the roadmap.
+- Updated README, roadmap and workspace interface to reflect all five functional first-version studios.
+- Extended CI to check the syntax of every frontend JavaScript module with Node.js.
 
-### Notes
-- Research, document, data, automation and development modules remain planned work.
+### Limitations
+- Research Studio organizes supplied notes only; it does not automatically browse or verify sources.
+- Document Studio extracts text only; it does not yet convert or edit source documents.
+- Automation Studio runs local deterministic text actions only; external integrations and scheduling remain future work.
+- Development Studio produces a static one-page starter, not a complete custom application or hosted website.
