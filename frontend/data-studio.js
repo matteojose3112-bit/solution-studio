@@ -1,4 +1,3 @@
-const dataStudioRoot = document.querySelector("#data-studio");
 const uploadInput = document.querySelector("#csv-file");
 const inspectButton = document.querySelector("#inspect-csv");
 const cleanButton = document.querySelector("#clean-csv");
@@ -59,7 +58,6 @@ function renderInspection(data) {
     });
     body.append(tr);
   });
-  body.append;
   table.append(body);
   preview.append(table);
   results.hidden = false;
