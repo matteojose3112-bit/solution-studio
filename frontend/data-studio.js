@@ -70,14 +70,14 @@ uploadInput.addEventListener("change", () => {
   fileName.textContent = file ? file.name : "No file selected";
   cleanButton.disabled = true;
   inspectButton.disabled = !file;
-  showMessage(file ? "Ready to inspect. Files stay in this session and are not stored." : "Choose a CSV file to begin.");
+  showMessage(file ? "Ready to inspect. Files stay in this session and are not stored." : "Choose a CSV or XLSX file to begin.");
 });
 
 inspectButton.addEventListener("click", async () => {
   const file = selectedFile();
   if (!file) return;
   inspectButton.disabled = true;
-  showMessage("Inspecting CSV…");
+  showMessage("Inspecting file…");
   try {
     const form = new FormData();
     form.append("file", file);
@@ -116,7 +116,7 @@ cleanButton.addEventListener("click", async () => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `${inspectedFile.name.replace(/\.csv$/i, "")}_cleaned.csv`;
+    link.download = `${inspectedFile.name.replace(/\.(csv|xlsx)$/i, "")}_cleaned.${inspectedFile.name.toLowerCase().endsWith(".xlsx") ? "xlsx" : "csv"}`;
     document.body.append(link);
     link.click();
     link.remove();
