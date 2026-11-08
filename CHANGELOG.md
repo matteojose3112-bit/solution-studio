@@ -14,6 +14,7 @@ Only implemented and verified changes belong in this file.
 
 ### Changed
 - Updated README, roadmap and workspace interface to reflect all five functional first-version studios.
+- Extended CI to check the syntax of every frontend JavaScript module with Node.js.
 
 ### Limitations
 - Research Studio organizes supplied notes only; it does not automatically browse or verify sources.
