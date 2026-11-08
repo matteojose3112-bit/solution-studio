@@ -32,9 +32,11 @@ Items are marked complete only after implementation and automated verification. 
 - [ ] Add optional AI-assisted synthesis adapter with human review
 
 ## Phase 4 — Document Studio
-- [ ] Extract text and metadata from PDF and common office documents
-- [ ] Support safe document cleanup and structured exports
-- [ ] Add file-size/type limits and extraction tests
+- [x] Extract text and metadata from PDF, DOCX and TXT
+- [x] Add upload size, PDF page, DOCX expansion and output-length limits
+- [x] Add downloadable text export
+- [x] Add extraction and API tests
+- [ ] Add PDF/DOCX conversion and structured document transformations
 
 ## Phase 5 — Automation Studio
 - [ ] Define reusable workflow patterns
