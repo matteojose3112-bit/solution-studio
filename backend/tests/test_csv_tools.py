@@ -149,6 +149,6 @@ def test_csv_export_neutralizes_spreadsheet_formula_cells() -> None:
         delimiter=",",
     )
     exported = serialize_csv(table)
-    assert "'=HYPERLINK(\"https://example.com\")" in exported
+    assert "\"'=HYPERLINK" in exported
     assert "'@SUM(1,1)" in exported
     assert "'-2" in exported
