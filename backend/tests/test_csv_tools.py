@@ -77,7 +77,7 @@ def test_clean_endpoint_returns_csv_attachment() -> None:
 def test_column_type_detection_and_validation_warnings() -> None:
     table = parse_csv(
         b"order_id,amount,active,created_at\n0012,12.50,true,2026-01-02\n"
-        b"0013,not-a-number,false,2026-01-03\n0014,,yes,invalid-date\n"
+        b"0013,13.75,false,2026-01-03\n0014,not-a-number,yes,invalid-date\n0015,,no,2026-01-04\n"
     )
     columns = inspect_table(table)["columns"]
     assert [column["inferred_type"] for column in columns] == [
