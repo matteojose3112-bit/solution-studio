@@ -5,6 +5,9 @@ All notable project changes are recorded here. Only implemented and verified cha
 ## [Unreleased]
 
 ### Added
+- Data Studio initial CSV workflow: upload, inspection, column statistics, preview and downloadable cleanup.
+- CSV safeguards: UTF-8 validation, 5 MB limit, row and column caps, malformed-row checks and unique header normalization.
+- Automated tests for CSV parsing, cleanup and upload endpoints.
 - FastAPI application with health and version endpoints.
 - JavaScript landing interface introducing the five planned studios.
 - Same-origin static frontend hosting through FastAPI.
