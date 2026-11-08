@@ -44,10 +44,10 @@
 
       <section class="data-workbench" id="data-studio">
         <p class="eyebrow">AVAILABLE NOW · DATA STUDIO</p>
-        <h2>Clean up a CSV in seconds.</h2>
-        <p class="data-description">Upload a CSV to inspect its structure, preview records and identify blank or duplicate rows. Choose cleanup options and download the result. Files are processed in memory and are not saved to disk.</p>
+        <h2>Clean up CSV and Excel files in seconds.</h2>
+        <p class="data-description">Upload a CSV or XLSX workbook to inspect its structure, preview records and identify blank or duplicate rows. Choose cleanup options and download the cleaned CSV or XLSX workbook. Files are processed in memory and are not saved to disk.</p>
         <div class="data-controls">
-          <label class="file-picker">Choose CSV <input id="csv-file" type="file" accept=".csv,text/csv" /></label>
+          <label class="file-picker">Choose CSV or XLSX <input id="csv-file" type="file" accept=".csv,.xlsx,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" /></label>
           <span id="selected-file" class="selected-file">No file selected</span>
           <button class="action-button" id="inspect-csv" type="button" disabled>Inspect file</button>
         </div>
