@@ -6,61 +6,38 @@ Solution Studio is a practical workspace for research, document processing, data
 
 ## Current foundation
 
-The first runnable application is now in place:
-- Python **FastAPI** backend.
-- Lightweight, responsive **JavaScript** frontend.
-- API health and version endpoints.
-- Backend tests and GitHub Actions CI.
-- **Data Studio:** CSV and XLSX inspection, column type inference, missing-value and inconsistent-value warnings, preview, whitespace cleanup, blank-row removal, duplicate-row removal, explicit column renaming, snake_case header normalization, column selection/reordering and CSV/XLSX exports.
+- Python **FastAPI** backend and lightweight **JavaScript** frontend.
+- API health/version endpoints, automated backend tests and GitHub Actions CI.
+- **Research Studio:** turn a research question and up to eight user-supplied source notes into a structured brief with key points, linked references and explicit limitations. Reports can be downloaded as Markdown. It does not crawl or verify source pages.
+- **Data Studio:** CSV/XLSX inspection, column type inference, missing/inconsistent-value warnings, preview, cleanup, explicit column renaming, snake_case normalization, column selection/reordering and CSV/XLSX exports.
 - One local server for both the API and browser interface.
-
-<badge color="success">Runnable foundation</badge>
 
 ## The five studios
 
-| Studio | Intended capabilities |
+| Studio | Capabilities |
 |---|---|
-| Research | Source-based research, comparisons, summaries and reports |
-| Documents | PDF and office-document extraction, transformation and exports |
-| Data | CSV/XLSX cleanup, validation, analysis and reporting |
-| Automation | Integrations, repeatable workflows, approvals and notifications |
-| Development | Custom websites, dashboards, prototypes and business tools |
-
-Research, Document, Automation and Development remain planned modules. Data Studio has working CSV and XLSX workflows.
+| Research | Source-note briefs, comparisons, linked references and Markdown reports |
+| Documents | PDF and office-document extraction, transformation and exports — planned |
+| Data | CSV/XLSX cleanup, validation, transformations and exports |
+| Automation | Integrations, repeatable workflows, approvals and notifications — planned |
+| Development | Custom websites, dashboards, prototypes and business tools — planned |
 
 ## Technology
 
 - **Python / FastAPI** — backend and processing services
 - **JavaScript** — browser interface and selected Node.js integrations
-- **SQL** — structured data operations
-- **SQLite** — planned lightweight local persistence
+- **SQL / SQLite** — optional future structured persistence
 - **Optional integrations** — n8n, Supabase and AI model providers
 
-Core development is local-first. Paid APIs and hosted services are not required to run the current foundation.
+Core modules are local-first. Paid APIs and hosted services are not required for the current workflows.
 
 ## Run locally
 
 Requires Python 3.10 or newer.
 
-```bash
-python -m venv .venv
-```
-
-Activate the environment:
-
 ```powershell
-# Windows PowerShell
-.venv\\Scripts\\Activate.ps1
-```
-
-```bash
-# macOS / Linux
-source .venv/bin/activate
-```
-
-Install and start:
-
-```bash
+python -m venv .venv
+.venv\Scripts\Activate.ps1
 python -m pip install -r backend/requirements.txt
 uvicorn app.main:app --reload --app-dir backend
 ```
@@ -71,9 +48,10 @@ Open **http://127.0.0.1:8000**. Interactive API documentation is at **http://127
 
 - `GET /api/health` — service health
 - `GET /api/version` — application version
-- `POST /api/data/inspect` — inspect an uploaded CSV or XLSX workbook (multipart field: `file`)
-- `POST /api/data/clean` — clean and download an uploaded CSV or XLSX workbook; accepts `trim_whitespace`, `remove_empty_rows` and `remove_duplicate_rows` query options
-- `POST /api/data/transform` — apply optional `rename_columns` (JSON object), `normalize_headers` and newline-separated `keep_columns` options, plus cleanup options, before exporting in the original format
+- `POST /api/research/report` — create a source-linked brief from a question and 1–8 source records (`title`, `url`, `notes`)
+- `POST /api/data/inspect` — inspect an uploaded CSV/XLSX file
+- `POST /api/data/clean` — clean and export an uploaded CSV/XLSX file
+- `POST /api/data/transform` — rename, normalize, select/reorder columns and clean before export
 
 ### Run tests
 
@@ -84,11 +62,10 @@ pytest
 ## Repository layout
 
 ```text
-backend/       FastAPI application, CSV processing services and tests
-frontend/      Static JavaScript interface, Data Studio module and styles
+backend/       FastAPI routes, processing services and tests
+frontend/      Static JavaScript interface, studio modules and styles
 docs/          Architecture and project documentation
 examples/      Synthetic demonstration material
-tests/         Shared test resources
 .github/       CI workflows
 ROADMAP.md     Planned implementation phases
 CHANGELOG.md   Verified project changes
