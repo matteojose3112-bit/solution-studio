@@ -48,6 +48,7 @@ Items are marked complete only after implementation and automated verification.
 - [ ] Document client customization and handoff
 
 ## Phase 7 — Portfolio readiness
+- [x] Add CI syntax checks for every frontend JavaScript module
 - [ ] Complete automated tests and CI for all modules
 - [ ] Review security, privacy and dependency risks
 - [ ] Add screenshots and synthetic demonstration data
