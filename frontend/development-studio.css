@@ -1,0 +1,11 @@
+#development-studio { margin: 0 0 100px; padding: 34px; border: 1px solid #ffffff1b; border-radius: 14px; background: linear-gradient(145deg, #1a293d, #142033); }
+.site-generator-form { display: grid; gap: 16px; margin-top: 22px; }
+.site-generator-form > label, .site-service-field { display: grid; gap: 8px; color: #c2cfdd; font-size: 12px; font-weight: 650; }
+.site-generator-form input, .site-generator-form textarea { width: 100%; border: 1px solid #ffffff25; border-radius: 7px; padding: 12px; color: #edf2f8; background: #0f1a2a; font: inherit; font-size: 13px; }
+.site-generator-form textarea { resize: vertical; line-height: 1.6; }
+.site-generator-form input[type="color"] { width: 64px; height: 42px; padding: 4px; }
+.site-services { display: grid; gap: 12px; padding: 0; border: 0; }
+.site-services legend { margin-bottom: 10px; color: #9ce7ca; font-size: 13px; font-weight: 750; }
+.site-service-field { position: relative; }
+.site-generator-message { color: #aebdce; font-size: 12px; }
+@media (max-width: 600px) { #development-studio { padding: 22px; } }
