@@ -11,11 +11,13 @@
     <link rel="stylesheet" href="/research-studio.css" />
     <link rel="stylesheet" href="/document-studio.css" />
     <link rel="stylesheet" href="/automation-studio.css" />
+    <link rel="stylesheet" href="/development-studio.css" />
     <script src="/app.js" defer></script>
     <script src="/data-studio.js" defer></script>
     <script src="/research-studio.js" defer></script>
     <script src="/document-studio.js" defer></script>
     <script src="/automation-studio.js" defer></script>
+    <script src="/development-studio.js" defer></script>
   </head>
   <body>
     <header class="topbar">
@@ -44,7 +46,7 @@
           <article class="studio-card"><span class="card-number">02</span><div class="card-icon">▤</div><h3>Document Studio</h3><p>Extract text and metadata from PDF, Word and plain-text files.</p><a class="card-state active" href="#document-studio">Available now · Open studio</a></article>
           <article class="studio-card"><span class="card-number">03</span><div class="card-icon">▦</div><h3>Data Studio</h3><p>Clean, validate, reshape and analyze structured data with repeatable steps.</p><span class="card-state active">Available now</span></article>
           <article class="studio-card"><span class="card-number">04</span><div class="card-icon">↗</div><h3>Automation Studio</h3><p>Build repeatable text workflows with previews, approvals and execution logs.</p><a class="card-state active" href="#automation-studio">Available now · Open studio</a></article>
-          <article class="studio-card"><span class="card-number">05</span><div class="card-icon">⌘</div><h3>Development Studio</h3><p>Build focused websites, dashboards, prototypes and lightweight business tools.</p><span class="card-state">Planned module</span></article>
+          <article class="studio-card"><span class="card-number">05</span><div class="card-icon">⌘</div><h3>Development Studio</h3><p>Generate a responsive static business website starter from a short brief.</p><a class="card-state active" href="#development-studio">Available now · Open studio</a></article>
         </div>
       </section>
 
@@ -141,6 +143,26 @@
         </form>
         <p id="automation-message" class="automation-message" role="status" aria-live="polite">Runs are stateless. Your input is not saved to a database.</p>
         <div id="automation-output" class="automation-output" hidden></div>
+      </section>
+
+      <section class="data-workbench" id="development-studio">
+        <p class="eyebrow">AVAILABLE NOW · DEVELOPMENT STUDIO</p>
+        <h2>Generate a simple business website.</h2>
+        <p class="data-description">Describe your business, add up to six services, choose an accent color and download a responsive static website starter. The ZIP contains HTML, CSS and setup notes—no build tools or paid services required.</p>
+        <form id="site-generator-form" class="site-generator-form">
+          <label>Business name<input id="site-business-name" required maxlength="100" placeholder="Your business name" /></label>
+          <label>Headline / tagline<input id="site-tagline" required maxlength="180" placeholder="What makes your business useful?" /></label>
+          <label>Short description<textarea id="site-description" rows="3" required maxlength="800" placeholder="Describe what you do and who you help."></textarea></label>
+          <fieldset id="site-services" class="site-services">
+            <legend>Services · add up to six</legend>
+            <label class="site-service-field">Service 1<input name="services" maxlength="100" required placeholder="Service name" /></label>
+          </fieldset>
+          <button class="action-button secondary" id="add-site-service" type="button">Add another service</button>
+          <label>Contact email (optional)<input id="site-email" type="email" maxlength="254" placeholder="hello@example.com" /></label>
+          <label>Accent color<input id="site-color" type="color" value="#7CE0B5" /></label>
+          <button class="action-button" type="submit">Generate website ZIP</button>
+        </form>
+        <p id="site-generator-message" class="site-generator-message" role="status" aria-live="polite">Your website is generated for this request only; no project data is stored.</p>
       </section>
 
       <section class="principles">
