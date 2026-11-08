@@ -1,5 +1,8 @@
 """CSV upload, inspection and cleanup endpoints."""
 
+import re
+from pathlib import Path
+
 from fastapi import APIRouter, File, HTTPException, Query, UploadFile
 from fastapi.responses import Response
 
@@ -52,7 +55,7 @@ async def clean_csv(
         )
     except CSVProcessingError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
-    safe_name = (file.filename or "data").rsplit(".", 1)[0]
+    safe_name = re.sub(r"[^A-Za-z0-9._-]+", "_", Path(file.filename or "data.csv").stem) or "data"
     return Response(
         content=serialize_csv(cleaned),
         media_type="text/csv; charset=utf-8",
