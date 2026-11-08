@@ -39,11 +39,12 @@ Items are marked complete only after implementation and automated verification. 
 - [ ] Add PDF/DOCX conversion and structured document transformations
 
 ## Phase 5 — Automation Studio
-- [ ] Define reusable workflow patterns
-- [ ] Add webhook and API integration examples
-- [ ] Demonstrate approval and notification steps
-- [ ] Document optional n8n integration
-- [ ] Add retries, logging and failure handling
+- [x] Define reusable workflow steps and ordered execution
+- [x] Add workflow preview and approval checkpoint
+- [x] Add execution logs and output downloads
+- [x] Export workflow definitions as JSON
+- [ ] Add optional webhook/API connectors and n8n integration
+- [ ] Add persistent schedules, notifications and retry queues
 
 ## Phase 6 — Development Studio
 - [ ] Add reusable patterns for small business tools
