@@ -8,7 +8,7 @@ from dataclasses import dataclass
 MAX_FILE_BYTES = 5 * 1024 * 1024
 MAX_ROWS = 20_000
 MAX_COLUMNS = 100
-ALLOWED_DELIMITERS = (",", ";", "\\t", "|")
+ALLOWED_DELIMITERS = (",", ";", "\t", "|")
 
 
 class CSVProcessingError(ValueError):
@@ -27,16 +27,15 @@ def parse_csv(content: bytes) -> CSVTable:
         raise CSVProcessingError("The uploaded file is empty.")
     if len(content) > MAX_FILE_BYTES:
         raise CSVProcessingError("File exceeds the 5 MB upload limit.")
-    if b"\\x00" in content:
+    if b"\x00" in content:
         raise CSVProcessingError("The file contains invalid null bytes.")
     try:
         text = content.decode("utf-8-sig")
     except UnicodeDecodeError as exc:
         raise CSVProcessingError("Please upload a UTF-8 encoded CSV file.") from exc
 
-    sample = text[:8192]
     try:
-        dialect = csv.Sniffer().sniff(sample, delimiters="".join(ALLOWED_DELIMITERS))
+        dialect = csv.Sniffer().sniff(text[:8192], delimiters="".join(ALLOWED_DELIMITERS))
         delimiter = dialect.delimiter
     except csv.Error:
         delimiter = ","
@@ -55,7 +54,6 @@ def parse_csv(content: bytes) -> CSVTable:
     if len(headers) > MAX_COLUMNS:
         raise CSVProcessingError(f"CSV exceeds the {MAX_COLUMNS}-column limit.")
 
-    # Give blank and repeated headings stable names so every column is addressable.
     seen: Counter[str] = Counter()
     normalized_headers: list[str] = []
     for index, header in enumerate(headers, start=1):
@@ -93,7 +91,7 @@ def inspect_table(table: CSVTable) -> dict:
         "column_count": len(table.headers),
         "empty_rows": len(table.rows) - len(nonempty_rows),
         "duplicate_rows": len(table.rows) - len({tuple(row) for row in table.rows}),
-        "delimiter": "TAB" if table.delimiter == "\\t" else table.delimiter,
+        "delimiter": "TAB" if table.delimiter == "\t" else table.delimiter,
         "columns": columns,
         "preview": table.rows[:10],
     }
@@ -110,8 +108,11 @@ def clean_table(
     seen: set[tuple[str, ...]] = set()
     removed_empty = 0
     removed_duplicates = 0
+    trimmed_cells = 0
+
     for row in table.rows:
         values = [cell.strip() for cell in row] if trim_whitespace else list(row)
+        trimmed_cells += sum(before != after for before, after in zip(row, values))
         if remove_empty_rows and not any(cell.strip() for cell in values):
             removed_empty += 1
             continue
@@ -121,12 +122,9 @@ def clean_table(
             continue
         seen.add(key)
         cleaned.append(values)
+
     return CSVTable(table.headers, cleaned, table.delimiter), {
-        "trimmed_cells": sum(
-            1 for old, new in zip(table.rows, [
-                [cell.strip() for cell in row] if trim_whitespace else row for row in table.rows
-            ]) for before, after in zip(old, new) if before != after
-        ),
+        "trimmed_cells": trimmed_cells,
         "removed_empty_rows": removed_empty,
         "removed_duplicate_rows": removed_duplicates,
     }
@@ -134,7 +132,7 @@ def clean_table(
 
 def serialize_csv(table: CSVTable) -> str:
     output = io.StringIO(newline="")
-    writer = csv.writer(output, delimiter=table.delimiter, lineterminator="\\n")
+    writer = csv.writer(output, delimiter=table.delimiter, lineterminator="\n")
     writer.writerow(table.headers)
     writer.writerows(table.rows)
     return output.getvalue()
