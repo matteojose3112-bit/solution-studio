@@ -12,7 +12,7 @@ def test_builds_source_linked_report_from_supplied_notes():
     assert report["source_count"] == 1
     assert report["sources"][0]["id"] == 1
     assert len(report["key_points"]) == 2
-    assert "not independently verified" in report["executive_summary"]
+    assert "have not been independently verified" in report["executive_summary"]
 
 
 @pytest.mark.parametrize("url", ["javascript:alert(1)", "file:///etc/passwd", "example.com"])
