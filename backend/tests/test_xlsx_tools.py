@@ -75,3 +75,19 @@ def test_xlsx_rejects_upload_over_limit() -> None:
         assert False, "Expected oversized workbook to be rejected"
     except CSVProcessingError as exc:
         assert "5 MB" in str(exc)
+
+
+
+def test_xlsx_rejects_archive_expansion_over_limit() -> None:
+    from zipfile import ZIP_DEFLATED, ZipFile
+    from app.services.xlsx_tools import MAX_XLSX_UNCOMPRESSED_BYTES
+
+    archive = BytesIO()
+    with ZipFile(archive, "w", compression=ZIP_DEFLATED) as bundle:
+        bundle.writestr("xl/sharedStrings.xml", b"0" * (MAX_XLSX_UNCOMPRESSED_BYTES + 1))
+
+    try:
+        parse_xlsx(archive.getvalue())
+        assert False, "Expected oversized archive expansion to be rejected"
+    except Exception as exc:
+        assert "25 MB" in str(exc)
