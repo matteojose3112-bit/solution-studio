@@ -137,3 +137,18 @@ def test_empty_rename_mapping_array_is_rejected() -> None:
 def test_numeric_inference_does_not_treat_decimal_comma_as_thousands() -> None:
     table = parse_csv(b"amount;other\n1,2;x\n")
     assert inspect_table(table)["columns"][0]["inferred_type"] == "text"
+
+
+
+def test_csv_export_neutralizes_spreadsheet_formula_cells() -> None:
+    from app.services.csv_tools import CSVTable, serialize_csv
+
+    table = CSVTable(
+        headers=["=HYPERLINK(\"https://example.com\")", "amount"],
+        rows=[["@SUM(1,1)", "-2",]],
+        delimiter=",",
+    )
+    exported = serialize_csv(table)
+    assert "'=HYPERLINK(\"https://example.com\")" in exported
+    assert "'@SUM(1,1)" in exported
+    assert "'-2" in exported

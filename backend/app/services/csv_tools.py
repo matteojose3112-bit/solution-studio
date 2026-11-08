@@ -177,11 +177,22 @@ def clean_table(
     }
 
 
+def _spreadsheet_safe_cell(value: str) -> str:
+    """Neutralize spreadsheet formula prefixes in CSV exports."""
+    text = str(value)
+    if text.lstrip(" \t\r\n").startswith(("=", "+", "-", "@")):
+        return "'" + text
+    return text
+
+
 def serialize_csv(table: CSVTable) -> str:
     output = io.StringIO(newline="")
     writer = csv.writer(output, delimiter=table.delimiter, lineterminator="\n")
-    writer.writerow(table.headers)
-    writer.writerows(table.rows)
+    writer.writerow([_spreadsheet_safe_cell(value) for value in table.headers])
+    writer.writerows(
+        [_spreadsheet_safe_cell(value) for value in row]
+        for row in table.rows
+    )
     return output.getvalue()
 
 
