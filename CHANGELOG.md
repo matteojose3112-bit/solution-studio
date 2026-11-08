@@ -1,23 +1,37 @@
 # Changelog
 
-Only implemented and verified changes belong in this file.
+Only implemented changes and verified deployment facts are recorded here.
 
 ## [Unreleased]
 
 ### Added
-- Research Studio source-note briefs with linked references, key points, limitations and Markdown export.
-- Document Studio in-memory extraction for PDF, DOCX and UTF-8 TXT, including metadata and downloadable text output.
-- Data Studio CSV/XLSX inspection, validation, cleanup, column transformations and exports.
-- Automation Studio allowlisted text workflows with ordered steps, preview, approval checkpoint, logs, output download and JSON export.
-- Development Studio static business website generator with validated inputs, escaped content and ZIP export containing HTML, CSS and setup notes.
-- Automated backend service and API tests for the implemented studios.
+- Five functional first-version studios: Research, Documents, Data, Automation and Development.
+- Research briefs from up to eight user-provided source notes, with key points, linked references, limitations and Markdown export.
+- In-memory PDF, DOCX and UTF-8 TXT text/metadata extraction with downloadable text output.
+- CSV/XLSX inspection, validation, cleanup, column transformations and export.
+- Allowlisted deterministic text workflows with preview, approval checkpoint, execution logs, output download and JSON workflow export.
+- Static responsive business website starter generation with validated inputs and ZIP packaging.
+- Backend automated tests and frontend JavaScript syntax checks in CI.
 
 ### Changed
-- Updated README, roadmap and workspace interface to reflect all five functional first-version studios.
-- Extended CI to check the syntax of every frontend JavaScript module with Node.js.
+- Updated project documentation to describe implemented functionality, setup, API routes, safeguards and remaining work.
+- Hardened spreadsheet processing with archive-expansion limits and regression coverage.
+- Integrated all five studio modules into the main application.
 
-### Limitations
-- Research Studio organizes supplied notes only; it does not automatically browse or verify sources.
-- Document Studio extracts text only; it does not yet convert or edit source documents.
-- Automation Studio runs local deterministic text actions only; external integrations and scheduling remain future work.
-- Development Studio produces a static one-page starter, not a complete custom application or hosted website.
+### Deployment
+- Published the application as a public Render web service: https://solution-studio-secb.onrender.com
+- Verified that the public homepage loads and `/api/health` returns `{"status":"ok","service":"solution-studio"}`.
+- Render free-tier instances may sleep after inactivity, which can increase first-request latency.
+
+### Verification
+- The integrated backend test suite passed 58 tests.
+- Frontend JavaScript syntax checks are included in CI.
+- Public homepage and health endpoint smoke checks passed.
+- Full browser-level end-to-end testing of all five studio workflows and downloadable outputs remains outstanding.
+
+### Known limitations
+- Research Studio organizes supplied notes only; automatic web research and independent source verification are not implemented.
+- Document Studio extracts text and metadata only; conversion and editing are not implemented.
+- Automation Studio runs local allowlisted text actions only; external integrations, persistence and scheduling are not implemented.
+- Development Studio generates a static one-page starter; custom backend development and hosting are outside its current scope.
+- Uploaded files and workflow inputs are processed in memory and are not persisted.
