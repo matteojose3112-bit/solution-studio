@@ -1,9 +1,13 @@
 """Safe XLSX inspection and export helpers. Only the first worksheet is processed."""
 from datetime import date, datetime, time
 from io import BytesIO
+from zipfile import BadZipFile, ZipFile
 
 from openpyxl import Workbook, load_workbook
 from openpyxl.cell import WriteOnlyCell
+
+MAX_XLSX_UNCOMPRESSED_BYTES = 25 * 1024 * 1024
+MAX_XLSX_ARCHIVE_ENTRIES = 1_000
 
 from app.services.csv_tools import (
     CSVProcessingError,
@@ -20,7 +24,18 @@ def parse_xlsx(content: bytes) -> CSVTable:
     if len(content) > MAX_FILE_BYTES:
         raise CSVProcessingError("File exceeds the 5 MB upload limit.")
     try:
+        with ZipFile(BytesIO(content)) as archive:
+            entries = archive.infolist()
+            if len(entries) > MAX_XLSX_ARCHIVE_ENTRIES:
+                raise CSVProcessingError("XLSX contains too many archive entries.")
+            expanded_size = sum(entry.file_size for entry in entries)
+            if expanded_size > MAX_XLSX_UNCOMPRESSED_BYTES:
+                raise CSVProcessingError("XLSX expands beyond the 25 MB processing limit.")
         workbook = load_workbook(BytesIO(content), read_only=True, data_only=True)
+    except CSVProcessingError:
+        raise
+    except (BadZipFile, OSError, ValueError) as exc:
+        raise CSVProcessingError("Could not read this XLSX file. Please upload a valid .xlsx workbook.") from exc
     except Exception as exc:
         raise CSVProcessingError("Could not read this XLSX file. Please upload a valid .xlsx workbook.") from exc
     try:
