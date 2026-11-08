@@ -116,7 +116,7 @@ cleanButton.addEventListener("click", async () => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `${inspectedFile.name.replace(/\\.csv$/i, "")}_cleaned.csv`;
+    link.download = `${inspectedFile.name.replace(/\.csv$/i, "")}_cleaned.csv`;
     document.body.append(link);
     link.click();
     link.remove();
