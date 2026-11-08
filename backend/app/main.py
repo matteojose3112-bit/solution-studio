@@ -8,7 +8,7 @@ from fastapi.staticfiles import StaticFiles
 from app.api.routes import router as api_router
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
-FRONTEND_DIR = ROOT_DIR.parent / "frontend"
+FRONTEND_DIR = ROOT_DIR / "frontend"
 
 app = FastAPI(
     title="Solution Studio API",
