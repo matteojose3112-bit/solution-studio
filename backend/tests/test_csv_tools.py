@@ -135,5 +135,5 @@ def test_empty_rename_mapping_array_is_rejected() -> None:
 
 
 def test_numeric_inference_does_not_treat_decimal_comma_as_thousands() -> None:
-    table = parse_csv(b"amount\n1,2\n")
+    table = parse_csv(b"amount;other\n1,2;x\n")
     assert inspect_table(table)["columns"][0]["inferred_type"] == "text"
