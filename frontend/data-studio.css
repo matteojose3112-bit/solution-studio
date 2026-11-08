@@ -1,0 +1,25 @@
+.data-workbench { margin: 0 0 96px; padding: 30px; border: 1px solid #ffffff1b; border-radius: 14px; background: #17263a; }
+.data-workbench h2 { margin-bottom: 8px; }
+.data-description { color: #a5b4c6; font-size: 14px; line-height: 1.7; max-width: 680px; }
+.data-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 24px 0 15px; }
+.file-picker { display: inline-flex; align-items: center; max-width: 100%; gap: 12px; padding: 11px 14px; border: 1px dashed #57708d; border-radius: 7px; color: #c8d5e3; font-size: 12px; cursor: pointer; }
+.file-picker input { width: min(190px, 42vw); color: #aab8ca; }
+.action-button { border: 0; border-radius: 7px; padding: 12px 16px; background: #a7f3d0; color: #11251f; font-weight: 750; cursor: pointer; }
+.action-button.secondary { background: #30435a; color: #edf2f8; }
+.action-button:disabled { opacity: .42; cursor: not-allowed; }
+.data-message { min-height: 22px; color: #82d9ba; font-size: 12px; }
+.data-message.error { color: #ff9d9d; }
+.clean-options { display: flex; flex-wrap: wrap; gap: 18px; margin: 15px 0 24px; color: #b5c3d2; font-size: 12px; }
+.clean-options label { display: flex; gap: 7px; align-items: center; }
+.data-results[hidden] { display: none; }
+.data-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 22px 0; }
+.stat { padding: 14px; border-radius: 8px; background: #101d2e; }
+.stat strong, .stat span { display: block; }
+.stat strong { font-size: 24px; }
+.stat span { margin-top: 5px; color: #9eafc2; font-size: 11px; }
+.data-preview { overflow-x: auto; border: 1px solid #ffffff18; border-radius: 8px; }
+.data-preview table { width: 100%; border-collapse: collapse; font-size: 12px; text-align: left; }
+.data-preview th, .data-preview td { padding: 10px 13px; border-bottom: 1px solid #ffffff12; white-space: nowrap; max-width: 240px; overflow: hidden; text-overflow: ellipsis; }
+.data-preview th { color: #a7f3d0; background: #101d2e; }
+.data-preview td { color: #c3cfdd; }
+@media (max-width: 600px) { .data-workbench { padding: 20px; } .data-stats { grid-template-columns: repeat(2, 1fr); } }
