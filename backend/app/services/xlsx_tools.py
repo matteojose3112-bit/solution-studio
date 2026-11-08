@@ -1,9 +1,17 @@
 """Safe XLSX inspection and export helpers. Only the first worksheet is processed."""
 from datetime import date, datetime, time
 from io import BytesIO
+
 from openpyxl import Workbook, load_workbook
 from openpyxl.cell import WriteOnlyCell
-from app.services.csv_tools import CSVProcessingError, CSVTable, MAX_COLUMNS, MAX_FILE_BYTES, MAX_ROWS
+
+from app.services.csv_tools import (
+    CSVProcessingError,
+    CSVTable,
+    MAX_COLUMNS,
+    MAX_FILE_BYTES,
+    MAX_ROWS,
+)
 
 
 def parse_xlsx(content: bytes) -> CSVTable:

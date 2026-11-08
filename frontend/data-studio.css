@@ -29,3 +29,6 @@
 .analysis-table th, .analysis-table td { padding: 9px 12px; border-bottom: 1px solid #ffffff12; }
 .analysis-table th { color: #a7f3d0; background: #101d2e; }
 .analysis-table td { color: #c3cfdd; }
+
+.clean-options textarea { width: 100%; max-width: 520px; padding: 10px; border: 1px solid #57708d; border-radius: 6px; background: #101d2e; color: #edf2f8; font: inherit; }
+.clean-options label[for] { flex-basis: 100%; }

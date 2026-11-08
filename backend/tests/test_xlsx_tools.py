@@ -64,3 +64,14 @@ def test_xlsx_transform_endpoint_exports_selected_columns() -> None:
     assert workbook.active["A2"].value == "Rome"
     assert workbook.active["B2"].value == "Ada"
     workbook.close()
+
+ 
+
+def test_xlsx_rejects_upload_over_limit() -> None:
+    from app.services.csv_tools import CSVProcessingError
+
+    try:
+        parse_xlsx(b"x" * (5 * 1024 * 1024 + 1))
+        assert False, "Expected oversized workbook to be rejected"
+    except CSVProcessingError as exc:
+        assert "5 MB" in str(exc)

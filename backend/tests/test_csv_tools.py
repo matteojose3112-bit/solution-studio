@@ -122,3 +122,18 @@ def test_transform_endpoint_exports_selected_columns() -> None:
 def test_transform_endpoint_rejects_invalid_rename_json() -> None:
     response = client.post("/api/data/transform?rename_columns=not-json", files={"file": ("sample.csv", b"name,city\nAda,London\n", "text/csv")})
     assert response.status_code == 422
+
+ 
+
+def test_empty_rename_mapping_array_is_rejected() -> None:
+    table = parse_csv(b"name,city\nAda,London\n")
+    try:
+        transform_table(table, rename_columns=[])
+        assert False, "Expected a non-object rename mapping to be rejected"
+    except CSVProcessingError as exc:
+        assert "JSON object" in str(exc)
+
+
+def test_numeric_inference_does_not_treat_decimal_comma_as_thousands() -> None:
+    table = parse_csv(b"amount\n1,2\n")
+    assert inspect_table(table)["columns"][0]["inferred_type"] == "text"

@@ -1,10 +1,18 @@
 """CSV and XLSX upload, inspection and cleanup endpoints."""
-import re
 import json
+import re
 from pathlib import Path
 from fastapi import APIRouter, File, HTTPException, Query, UploadFile
 from fastapi.responses import Response
-from app.services.csv_tools import CSVProcessingError, MAX_FILE_BYTES, clean_table, inspect_table, parse_csv, serialize_csv, transform_table
+from app.services.csv_tools import (
+    CSVProcessingError,
+    MAX_FILE_BYTES,
+    clean_table,
+    inspect_table,
+    parse_csv,
+    serialize_csv,
+    transform_table,
+)
 from app.services.xlsx_tools import parse_xlsx, serialize_xlsx
 router = APIRouter(prefix="/data", tags=["data"])
 XLSX_MIME = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
@@ -53,6 +61,8 @@ async def transform_data(file: UploadFile = File(...), trim_whitespace: bool = Q
     suffix, table = await read_table_upload(file)
     try:
         rename_mapping = json.loads(rename_columns)
+        if not isinstance(rename_mapping, dict):
+            raise CSVProcessingError("Column renames must be a JSON object.")
         selected_columns = [name.strip() for name in keep_columns.splitlines() if name.strip()] or None
         transformed = transform_table(table, rename_columns=rename_mapping, normalize_headers=normalize_headers, keep_columns=selected_columns)
         transformed, stats = clean_table(transformed, trim_whitespace=trim_whitespace, remove_empty_rows=remove_empty_rows, remove_duplicate_rows=remove_duplicate_rows)
