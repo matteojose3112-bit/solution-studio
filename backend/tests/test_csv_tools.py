@@ -84,7 +84,6 @@ def test_column_type_detection_and_validation_warnings() -> None:
         "text", "decimal", "boolean", "date"
     ]
     assert columns[1]["inconsistent_values"] == 1
-    assert columns[1]["missing_values"] == 0
     assert columns[2]["inconsistent_values"] == 0
     assert columns[3]["inconsistent_values"] == 1
     assert columns[1]["missing_values"] == 1
