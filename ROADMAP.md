@@ -19,13 +19,13 @@ Items are marked complete only after implementation. Planned studio cards in the
 - [x] Add initial automated tests
 
 ## Phase 2 — Document and data tools
-- [x] Build initial CSV upload and file-validation utilities (CSV only, 5 MB limit)
+- [x] Build initial CSV upload and file-validation utilities (CSV and XLSX, 5 MB limit)
 - [ ] Add document metadata and text extraction
 - [x] Add CSV inspection, preview and column statistics
 - [x] Add CSV cleanup: trim whitespace, remove blank rows and duplicate rows
 - [x] Support cleaned CSV downloads
 - [x] Add synthetic CSV tests
-- [ ] Add richer data validation, type inference and analysis
+- [x] Add initial XLSX inspection, cleanup and export support\n- [ ] Add richer data validation, type inference and analysis
 
 ## Phase 3 — Research tools
 - [ ] Create source-aware research workflow
