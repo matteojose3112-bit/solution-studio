@@ -2,6 +2,9 @@
 
 import csv
 import io
+import re
+from datetime import date, datetime
+from decimal import Decimal, InvalidOperation
 from collections import Counter
 from dataclasses import dataclass
 
@@ -74,17 +77,56 @@ def parse_csv(content: bytes) -> CSVTable:
     return CSVTable(normalized_headers, rows, delimiter)
 
 
+def _value_type(value: str) -> str:
+    text = value.strip()
+    lowered = text.casefold()
+    if lowered in {"true", "false", "yes", "no", "y", "n"}:
+        return "boolean"
+    if re.fullmatch(r"[+-]?\d+", text) and not re.fullmatch(r"[+-]?0\d+", text):
+        return "integer"
+    try:
+        number = Decimal(text.replace(",", "")) if "," in text and "." not in text else Decimal(text)
+        if number.is_finite():
+            return "decimal" if number != number.to_integral_value() or "." in text else "integer"
+    except InvalidOperation:
+        pass
+    try:
+        date.fromisoformat(text)
+        return "date"
+    except ValueError:
+        pass
+    try:
+        datetime.fromisoformat(text.replace("Z", "+00:00"))
+        return "datetime"
+    except ValueError:
+        return "text"
+
+
 def inspect_table(table: CSVTable) -> dict:
     nonempty_rows = [row for row in table.rows if any(cell.strip() for cell in row)]
     columns = []
     for index, name in enumerate(table.headers):
         values = [row[index] for row in table.rows]
         populated = [value for value in values if value.strip()]
+        type_counts = Counter(_value_type(value) for value in populated)
+        inferred_type = "empty"
+        inconsistent = 0
+        if type_counts:
+            ranked = type_counts.most_common()
+            if len(ranked) > 1 and ranked[0][1] == ranked[1][1]:
+                inferred_type = "mixed"
+                inconsistent = len(populated)
+            else:
+                inferred_type = ranked[0][0]
+                inconsistent = len(populated) - ranked[0][1]
         columns.append({
             "name": name,
             "non_empty": len(populated),
             "empty": len(values) - len(populated),
             "unique": len(set(populated)),
+            "inferred_type": inferred_type,
+            "inconsistent_values": inconsistent,
+            "missing_values": len(values) - len(populated),
         })
     return {
         "row_count": len(table.rows),
