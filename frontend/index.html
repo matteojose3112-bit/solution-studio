@@ -7,7 +7,9 @@
     <meta name="description" content="A modular workshop for practical digital solutions." />
     <title>Solution Studio</title>
     <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/data-studio.css" />
     <script src="/app.js" defer></script>
+    <script src="/data-studio.js" defer></script>
   </head>
   <body>
     <header class="topbar">
@@ -34,9 +36,31 @@
         <div class="studio-grid">
           <article class="studio-card"><span class="card-number">01</span><div class="card-icon">⌕</div><h3>Research Studio</h3><p>Gather sources, compare options and turn findings into structured, traceable reports.</p><span class="card-state">Planned module</span></article>
           <article class="studio-card"><span class="card-number">02</span><div class="card-icon">▤</div><h3>Document Studio</h3><p>Extract, organize, transform and prepare documents for practical use.</p><span class="card-state">Planned module</span></article>
-          <article class="studio-card"><span class="card-number">03</span><div class="card-icon">▦</div><h3>Data Studio</h3><p>Clean, validate, reshape and analyze structured data with repeatable steps.</p><span class="card-state">Planned module</span></article>
+          <article class="studio-card"><span class="card-number">03</span><div class="card-icon">▦</div><h3>Data Studio</h3><p>Clean, validate, reshape and analyze structured data with repeatable steps.</p><span class="card-state active">Available now</span></article>
           <article class="studio-card"><span class="card-number">04</span><div class="card-icon">↗</div><h3>Automation Studio</h3><p>Connect tools and workflows with clear logging, approvals and failure handling.</p><span class="card-state">Planned module</span></article>
           <article class="studio-card"><span class="card-number">05</span><div class="card-icon">⌘</div><h3>Development Studio</h3><p>Build focused websites, dashboards, prototypes and lightweight business tools.</p><span class="card-state">Planned module</span></article>
+        </div>
+      </section>
+
+      <section class="data-workbench" id="data-studio">
+        <p class="eyebrow">AVAILABLE NOW · DATA STUDIO</p>
+        <h2>Clean up a CSV in seconds.</h2>
+        <p class="data-description">Upload a CSV to inspect its structure, preview records and identify blank or duplicate rows. Choose cleanup options and download the result. Files are processed in memory and are not saved to disk.</p>
+        <div class="data-controls">
+          <label class="file-picker">Choose CSV <input id="csv-file" type="file" accept=".csv,text/csv" /></label>
+          <span id="selected-file" class="selected-file">No file selected</span>
+          <button class="action-button" id="inspect-csv" type="button" disabled>Inspect file</button>
+        </div>
+        <div class="clean-options" aria-label="Cleanup options">
+          <label><input id="trim-whitespace" type="checkbox" checked /> Trim cell whitespace</label>
+          <label><input id="remove-empty-rows" type="checkbox" checked /> Remove blank rows</label>
+          <label><input id="remove-duplicate-rows" type="checkbox" checked /> Remove duplicate rows</label>
+        </div>
+        <button class="action-button secondary" id="clean-csv" type="button" disabled>Clean &amp; download CSV</button>
+        <p id="data-message" class="data-message" role="status" aria-live="polite">Choose a CSV file to begin. Maximum size: 5 MB.</p>
+        <div id="data-results" class="data-results" hidden>
+          <div id="data-stats" class="data-stats"></div>
+          <div class="data-preview" id="data-preview"></div>
         </div>
       </section>
 
