@@ -5,16 +5,17 @@ Only implemented and verified changes belong in this file.
 ## [Unreleased]
 
 ### Added
-- Research Studio API and browser workflow for source-linked research briefs based on user-provided source titles, URLs and notes.
-- Structured executive summary, extracted key points, source references, limitations and Markdown report download.
-- Research input validation for question/source limits, required notes, HTTP(S) links and duplicate URLs.
-- Automated service and API tests for Research Studio.
+- Research Studio source-note briefs with linked references, key points, limitations and Markdown export.
+- Document Studio in-memory extraction for PDF, DOCX and UTF-8 TXT, including available metadata and downloadable text output.
+- Document upload safeguards: 10 MB input limit, 100-page PDF limit, 25 MB DOCX expansion limit and 100,000-character output limit.
+- Automated document service and API tests.
 - Data Studio CSV/XLSX inspection, validation, cleanup, column transformations and exports.
 - FastAPI application, lightweight frontend, health/version endpoints and GitHub Actions CI.
 
 ### Changed
-- Updated README, roadmap and workspace interface to reflect the implemented Research and Data workflows.
+- Updated README, roadmap and workspace interface to reflect implemented Research, Document and Data workflows.
 
 ### Limitations
-- Research Studio organizes supplied notes only. It does not automatically browse, scrape or verify linked pages.
-- Document, Automation and Development Studios remain planned modules.
+- Research Studio organizes supplied notes only; it does not automatically browse or verify sources.
+- Document Studio extracts text only; it does not yet convert file formats or edit source documents.
+- Automation and Development Studios remain planned modules.
