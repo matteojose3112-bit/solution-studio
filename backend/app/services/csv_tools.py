@@ -82,7 +82,9 @@ def _value_type(value: str) -> str:
     lowered = text.casefold()
     if lowered in {"true", "false", "yes", "no", "y", "n"}:
         return "boolean"
-    if re.fullmatch(r"[+-]?\d+", text) and not re.fullmatch(r"[+-]?0\d+", text):
+    if re.fullmatch(r"[+-]?0\d+", text):
+        return "text"
+    if re.fullmatch(r"[+-]?\d+", text):
         return "integer"
     try:
         number = Decimal(text.replace(",", "")) if "," in text and "." not in text else Decimal(text)
