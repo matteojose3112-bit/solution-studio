@@ -2,7 +2,10 @@
 
 import csv
 import io
+import re
 from collections import Counter
+from datetime import date, datetime
+from decimal import Decimal, InvalidOperation
 from dataclasses import dataclass
 
 MAX_FILE_BYTES = 5 * 1024 * 1024
@@ -74,17 +77,61 @@ def parse_csv(content: bytes) -> CSVTable:
     return CSVTable(normalized_headers, rows, delimiter)
 
 
+def _value_type(value: str) -> str:
+    text = value.strip()
+    lowered = text.casefold()
+    if lowered in {"true", "false", "yes", "no", "y", "n"}:
+        return "boolean"
+    if re.fullmatch(r"[+-]?0\d+", text):
+        return "text"
+    if re.fullmatch(r"[+-]?\d+", text):
+        return "integer"
+    try:
+        number_text = text
+        if re.fullmatch(r"[+-]?\d{1,3}(,\d{3})+", text):
+            number_text = text.replace(",", "")
+        number = Decimal(number_text)
+        if number.is_finite():
+            return "decimal" if number != number.to_integral_value() or "." in text else "integer"
+    except InvalidOperation:
+        pass
+    try:
+        date.fromisoformat(text)
+        return "date"
+    except ValueError:
+        pass
+    try:
+        datetime.fromisoformat(text.replace("Z", "+00:00"))
+        return "datetime"
+    except ValueError:
+        return "text"
+
+
 def inspect_table(table: CSVTable) -> dict:
     nonempty_rows = [row for row in table.rows if any(cell.strip() for cell in row)]
     columns = []
     for index, name in enumerate(table.headers):
         values = [row[index] for row in table.rows]
         populated = [value for value in values if value.strip()]
+        type_counts = Counter(_value_type(value) for value in populated)
+        inferred_type = "empty"
+        inconsistent = 0
+        if type_counts:
+            ranked = type_counts.most_common()
+            if len(ranked) > 1 and ranked[0][1] == ranked[1][1]:
+                inferred_type = "mixed"
+                inconsistent = len(populated)
+            else:
+                inferred_type = ranked[0][0]
+                inconsistent = len(populated) - ranked[0][1]
         columns.append({
             "name": name,
             "non_empty": len(populated),
             "empty": len(values) - len(populated),
             "unique": len(set(populated)),
+            "inferred_type": inferred_type,
+            "inconsistent_values": inconsistent,
+            "missing_values": len(values) - len(populated),
         })
     return {
         "row_count": len(table.rows),
@@ -130,9 +177,68 @@ def clean_table(
     }
 
 
+def _spreadsheet_safe_cell(value: str) -> str:
+    """Neutralize spreadsheet formula prefixes in CSV exports."""
+    text = str(value)
+    if text.lstrip(" \t\r\n").startswith(("=", "+", "-", "@")):
+        return "'" + text
+    return text
+
+
 def serialize_csv(table: CSVTable) -> str:
     output = io.StringIO(newline="")
     writer = csv.writer(output, delimiter=table.delimiter, lineterminator="\n")
-    writer.writerow(table.headers)
-    writer.writerows(table.rows)
+    writer.writerow([_spreadsheet_safe_cell(value) for value in table.headers])
+    writer.writerows(
+        [_spreadsheet_safe_cell(value) for value in row]
+        for row in table.rows
+    )
     return output.getvalue()
+
+
+def transform_table(
+    table: CSVTable,
+    *,
+    rename_columns: dict[str, str] | None = None,
+    normalize_headers: bool = False,
+    keep_columns: list[str] | None = None,
+) -> CSVTable:
+    """Apply explicit, validated column transformations without changing cell values."""
+    if rename_columns is None:
+        rename_columns = {}
+    if not isinstance(rename_columns, dict):
+        raise CSVProcessingError("Column renames must be a JSON object.")
+    unknown = set(rename_columns) - set(table.headers)
+    if unknown:
+        raise CSVProcessingError(f"Unknown columns in rename mapping: {', '.join(sorted(unknown))}.")
+    if any(not isinstance(value, str) or not value.strip() for value in rename_columns.values()):
+        raise CSVProcessingError("New column names must be non-empty strings.")
+
+    headers = [rename_columns.get(name, name).strip() for name in table.headers]
+    if normalize_headers:
+        normalized, used = [], Counter()
+        for index, name in enumerate(headers, 1):
+            base = re.sub(r"[^a-z0-9]+", "_", name.casefold()).strip("_") or f"column_{index}"
+            used[base] += 1
+            normalized.append(base if used[base] == 1 else f"{base}_{used[base]}")
+        headers = normalized
+
+    if len(set(headers)) != len(headers):
+        raise CSVProcessingError("Column names must be unique after renaming.")
+    if keep_columns is not None:
+        if not isinstance(keep_columns, list) or any(not isinstance(name, str) for name in keep_columns):
+            raise CSVProcessingError("Selected columns must be a list of column names.")
+        if len(set(keep_columns)) != len(keep_columns):
+            raise CSVProcessingError("A column can only be selected once.")
+        missing = [name for name in keep_columns if name not in headers]
+        if missing:
+            raise CSVProcessingError(f"Unknown selected columns: {', '.join(missing)}.")
+        indexes = [headers.index(name) for name in keep_columns]
+        headers = [headers[index] for index in indexes]
+        rows = [[row[index] for index in indexes] for row in table.rows]
+    else:
+        rows = [list(row) for row in table.rows]
+
+    if not headers:
+        raise CSVProcessingError("Select at least one column to export.")
+    return CSVTable(headers, rows, table.delimiter)

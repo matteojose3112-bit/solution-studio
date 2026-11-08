@@ -5,9 +5,9 @@ All notable project changes are recorded here. Only implemented and verified cha
 ## [Unreleased]
 
 ### Added
-- Data Studio initial CSV workflow: upload, inspection, column statistics, preview and downloadable cleanup.
-- CSV safeguards: UTF-8 validation, 5 MB limit, row and column caps, malformed-row checks and unique header normalization.
-- Automated tests for CSV parsing, cleanup and upload endpoints.
+- Data Studio supports CSV and XLSX upload, inspection, column statistics, inferred column types, missing/inconsistent-value warnings, preview, cleanup, explicit column renaming, snake_case header normalization, column selection/reordering and cleaned/transformed-file downloads. XLSX processing uses the first worksheet and cached formula values; formulas are not evaluated.
+- CSV/XLSX safeguards: 5 MB limit, row and column caps and unique header normalization; CSV includes UTF-8 and malformed-row validation, plus spreadsheet-formula neutralization on CSV export.
+- Automated tests for CSV and XLSX parsing, cleanup, upload endpoints, transformation validation and workbook exports.
 - FastAPI application with health and version endpoints.
 - JavaScript landing interface introducing the five planned studios.
 - Same-origin static frontend hosting through FastAPI.

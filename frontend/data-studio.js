@@ -6,6 +6,7 @@ const results = document.querySelector("#data-results");
 const preview = document.querySelector("#data-preview");
 const stats = document.querySelector("#data-stats");
 const fileName = document.querySelector("#selected-file");
+const transformButton = document.querySelector("#transform-data");
 
 let inspectedFile = null;
 
@@ -37,6 +38,40 @@ function renderInspection(data) {
   });
 
   preview.replaceChildren();
+  const analysisTitle = document.createElement("h3");
+  analysisTitle.textContent = "Column validation";
+  analysisTitle.className = "analysis-title";
+  preview.append(analysisTitle);
+  const analysisTable = document.createElement("table");
+  analysisTable.className = "analysis-table";
+  const analysisHead = document.createElement("thead");
+  const analysisHeader = document.createElement("tr");
+  ["Column", "Detected type", "Missing", "Inconsistent"].forEach((label) => {
+    const th = document.createElement("th");
+    th.textContent = label;
+    analysisHeader.append(th);
+  });
+  analysisHead.append(analysisHeader);
+  analysisTable.append(analysisHead);
+  const analysisBody = document.createElement("tbody");
+  data.columns.forEach((column) => {
+    const row = document.createElement("tr");
+    [column.name, column.inferred_type || "unknown",
+      column.missing_values ?? column.empty ?? 0,
+      column.inconsistent_values ?? 0].forEach((value) => {
+      const cell = document.createElement("td");
+      cell.textContent = value;
+      row.append(cell);
+    });
+    analysisBody.append(row);
+  });
+  analysisTable.append(analysisBody);
+  preview.append(analysisTable);
+
+  const previewTitle = document.createElement("h3");
+  previewTitle.textContent = "Data preview";
+  previewTitle.className = "analysis-title";
+  preview.append(previewTitle);
   const table = document.createElement("table");
   const head = document.createElement("thead");
   const headerRow = document.createElement("tr");
@@ -69,15 +104,16 @@ uploadInput.addEventListener("change", () => {
   const file = selectedFile();
   fileName.textContent = file ? file.name : "No file selected";
   cleanButton.disabled = true;
+  transformButton.disabled = true;
   inspectButton.disabled = !file;
-  showMessage(file ? "Ready to inspect. Files stay in this session and are not stored." : "Choose a CSV file to begin.");
+  showMessage(file ? "Ready to inspect. Files stay in this session and are not stored." : "Choose a CSV or XLSX file to begin.");
 });
 
 inspectButton.addEventListener("click", async () => {
   const file = selectedFile();
   if (!file) return;
   inspectButton.disabled = true;
-  showMessage("Inspecting CSV…");
+  showMessage("Inspecting file…");
   try {
     const form = new FormData();
     form.append("file", file);
@@ -87,6 +123,7 @@ inspectButton.addEventListener("click", async () => {
     inspectedFile = file;
     renderInspection(payload);
     cleanButton.disabled = false;
+    transformButton.disabled = false;
     showMessage(`Inspection complete · detected delimiter: ${payload.delimiter}`);
   } catch (error) {
     showMessage(error.message, true);
@@ -116,7 +153,7 @@ cleanButton.addEventListener("click", async () => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `${inspectedFile.name.replace(/\.csv$/i, "")}_cleaned.csv`;
+    link.download = `${inspectedFile.name.replace(/\.(csv|xlsx)$/i, "")}_cleaned.${inspectedFile.name.toLowerCase().endsWith(".xlsx") ? "xlsx" : "csv"}`;
     document.body.append(link);
     link.click();
     link.remove();
@@ -128,5 +165,54 @@ cleanButton.addEventListener("click", async () => {
     showMessage(error.message, true);
   } finally {
     cleanButton.disabled = false;
+  }
+});
+
+
+transformButton.addEventListener("click", async () => {
+  if (!inspectedFile) return;
+  transformButton.disabled = true;
+  showMessage("Applying selected transformations…");
+  const renameText = document.querySelector("#rename-columns").value.trim();
+  let renameColumns = {};
+  try {
+    renameColumns = renameText ? JSON.parse(renameText) : {};
+    if (!renameColumns || Array.isArray(renameColumns) || typeof renameColumns !== "object") throw new Error("Rename mapping must be a JSON object.");
+  } catch (error) {
+    showMessage(error.message || "Rename mapping must be valid JSON.", true);
+    transformButton.disabled = false;
+    return;
+  }
+  const query = new URLSearchParams({
+    trim_whitespace: String(document.querySelector("#trim-whitespace").checked),
+    remove_empty_rows: String(document.querySelector("#remove-empty-rows").checked),
+    remove_duplicate_rows: String(document.querySelector("#remove-duplicate-rows").checked),
+    normalize_headers: String(document.querySelector("#normalize-headers").checked),
+    rename_columns: JSON.stringify(renameColumns),
+    keep_columns: document.querySelector("#keep-columns").value,
+  });
+  try {
+    const form = new FormData();
+    form.append("file", inspectedFile);
+    const response = await fetch("/api/data/transform?" + query, { method: "POST", body: form });
+    if (!response.ok) {
+      const payload = await response.json();
+      throw new Error(payload.detail || "Could not transform this file.");
+    }
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    const extension = inspectedFile.name.toLowerCase().endsWith(".xlsx") ? "xlsx" : "csv";
+    link.download = inspectedFile.name.replace(/\.(csv|xlsx)$/i, "") + "_transformed." + extension;
+    document.body.append(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+    showMessage("Transformation complete · your export is ready.");
+  } catch (error) {
+    showMessage(error.message, true);
+  } finally {
+    transformButton.disabled = false;
   }
 });
