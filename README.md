@@ -8,16 +8,17 @@ Solution Studio is a practical workspace for research, document processing, data
 
 - Python **FastAPI** backend and lightweight **JavaScript** frontend.
 - API health/version endpoints, automated backend tests and GitHub Actions CI.
-- **Research Studio:** turn a research question and up to eight user-supplied source notes into a structured brief with key points, linked references and explicit limitations. Reports can be downloaded as Markdown. It does not crawl or verify source pages.
-- **Data Studio:** CSV/XLSX inspection, column type inference, missing/inconsistent-value warnings, preview, cleanup, explicit column renaming, snake_case normalization, column selection/reordering and CSV/XLSX exports.
+- **Research Studio:** source-linked working briefs from up to eight user-provided source notes, with key points, limitations and Markdown export.
+- **Document Studio:** in-memory text and metadata extraction from PDF, DOCX and UTF-8 TXT files, with a downloadable text export.
+- **Data Studio:** CSV/XLSX inspection, column type inference, missing/inconsistent-value warnings, preview, cleanup, column transformations and CSV/XLSX exports.
 - One local server for both the API and browser interface.
 
 ## The five studios
 
 | Studio | Capabilities |
 |---|---|
-| Research | Source-note briefs, comparisons, linked references and Markdown reports |
-| Documents | PDF and office-document extraction, transformation and exports — planned |
+| Research | Source-note briefs, linked references and Markdown reports |
+| Documents | PDF/DOCX/TXT text extraction, metadata and text export |
 | Data | CSV/XLSX cleanup, validation, transformations and exports |
 | Automation | Integrations, repeatable workflows, approvals and notifications — planned |
 | Development | Custom websites, dashboards, prototypes and business tools — planned |
@@ -26,6 +27,7 @@ Solution Studio is a practical workspace for research, document processing, data
 
 - **Python / FastAPI** — backend and processing services
 - **JavaScript** — browser interface and selected Node.js integrations
+- **openpyxl, pypdf, python-docx** — spreadsheet and document processing
 - **SQL / SQLite** — optional future structured persistence
 - **Optional integrations** — n8n, Supabase and AI model providers
 
@@ -48,10 +50,19 @@ Open **http://127.0.0.1:8000**. Interactive API documentation is at **http://127
 
 - `GET /api/health` — service health
 - `GET /api/version` — application version
-- `POST /api/research/report` — create a source-linked brief from a question and 1–8 source records (`title`, `url`, `notes`)
+- `POST /api/research/report` — create a source-linked brief from a question and 1–8 source records
+- `POST /api/documents/extract` — extract text and metadata from PDF, DOCX or TXT uploads
 - `POST /api/data/inspect` — inspect an uploaded CSV/XLSX file
 - `POST /api/data/clean` — clean and export an uploaded CSV/XLSX file
 - `POST /api/data/transform` — rename, normalize, select/reorder columns and clean before export
+
+### Document safeguards
+
+- 10 MB maximum upload; PDF limited to 100 pages.
+- DOCX archive expansion limited to 25 MB.
+- Extracted output limited to 100,000 characters.
+- Password-protected PDFs and non-UTF-8 text files are not supported.
+- Files are processed in memory and are not persisted.
 
 ### Run tests
 
