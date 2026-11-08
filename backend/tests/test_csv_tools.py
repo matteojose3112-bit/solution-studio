@@ -72,3 +72,26 @@ def test_clean_endpoint_returns_csv_attachment() -> None:
     assert "attachment" in response.headers["content-disposition"]
     assert response.text == "name,city\nAda,Rome\nBea,Paris\n"
     assert response.headers["x-rows-removed-duplicates"] == "1"
+
+
+def test_column_type_detection_and_validation_warnings() -> None:
+    table = parse_csv(
+        b"order_id,amount,active,created_at\n0012,12.50,true,2026-01-02\n"
+        b"0013,not-a-number,false,2026-01-03\n0014,,yes,invalid-date\n"
+    )
+    columns = inspect_table(table)["columns"]
+    assert [column["inferred_type"] for column in columns] == [
+        "text", "decimal", "boolean", "date"
+    ]
+    assert columns[1]["inconsistent_values"] == 1
+    assert columns[1]["missing_values"] == 0
+    assert columns[2]["inconsistent_values"] == 0
+    assert columns[3]["inconsistent_values"] == 1
+    assert columns[1]["missing_values"] == 1
+
+
+def test_empty_column_is_reported_without_a_type() -> None:
+    table = parse_csv(b"name,notes\nAda,\nBea,\n")
+    notes = inspect_table(table)["columns"][1]
+    assert notes["inferred_type"] == "empty"
+    assert notes["missing_values"] == 2
