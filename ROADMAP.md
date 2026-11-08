@@ -25,7 +25,7 @@ Items are marked complete only after implementation. Planned studio cards in the
 - [x] Add CSV cleanup: trim whitespace, remove blank rows and duplicate rows
 - [x] Support cleaned CSV downloads
 - [x] Add synthetic CSV tests
-- [x] Add initial XLSX inspection, cleanup and export support\n- [ ] Add richer data validation, type inference and analysis
+- [x] Add initial XLSX inspection, cleanup and export support\n- [x] Add initial column type inference and missing/inconsistent-value warnings\n- [ ] Add richer data validation, type inference and analysis
 
 ## Phase 3 — Research tools
 - [ ] Create source-aware research workflow
