@@ -1,5 +1,4 @@
 """Deterministic research report builder using source notes supplied by the user."""
-from collections import OrderedDict
 from urllib.parse import urlparse
 
 
@@ -17,6 +16,7 @@ def build_research_report(question: str, sources: list[dict]) -> dict:
     prepared = []
     seen_urls = set()
     statements = []
+    seen_statements = set()
     for index, source in enumerate(sources, start=1):
         title = str(source.get("title", "")).strip()
         url = str(source.get("url", "")).strip()
@@ -32,16 +32,18 @@ def build_research_report(question: str, sources: list[dict]) -> dict:
         if normalized_url in seen_urls:
             raise ResearchInputError(f"Source {index}: duplicate source URL.")
         seen_urls.add(normalized_url)
-        prepared.append({"id": index, "title": title, "url": url, "notes": notes})
+        prepared.append({"id": index, "title": title, "url": url})
         for fragment in notes.replace("\n", " ").split(". "):
-            text = fragment.strip(" \t\r\n.;")
-            if len(text) >= 24 and text.casefold() not in {item.casefold() for item in statements}:
-                statements.append(text)
+            point = fragment.strip(" \t\r\n.;")
+            normalized_point = point.casefold()
+            if len(point) >= 24 and normalized_point not in seen_statements:
+                statements.append(point)
+                seen_statements.add(normalized_point)
 
     return {
         "question": question,
         "source_count": len(prepared),
-        "sources": [{"id": item["id"], "title": item["title"], "url": item["url"]} for item in prepared],
+        "sources": prepared,
         "executive_summary": (
             f"This working brief addresses: {question} "
             f"It is based on {len(prepared)} source(s) and the notes supplied for this report. "
