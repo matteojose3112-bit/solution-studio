@@ -11,7 +11,7 @@ The first runnable application is now in place:
 - Lightweight, responsive **JavaScript** frontend.
 - API health and version endpoints.
 - Backend tests and GitHub Actions CI.
-- **Data Studio:** CSV and XLSX inspection, preview, whitespace cleanup, blank-row removal, duplicate-row removal and cleaned-file downloads.
+- **Data Studio:** CSV and XLSX inspection, column type inference, missing-value and inconsistent-value warnings, preview, whitespace cleanup, blank-row removal, duplicate-row removal and cleaned-file downloads.
 - One local server for both the API and browser interface.
 
 <badge color="success">Runnable foundation</badge>
