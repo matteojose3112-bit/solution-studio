@@ -37,6 +37,40 @@ function renderInspection(data) {
   });
 
   preview.replaceChildren();
+  const analysisTitle = document.createElement("h3");
+  analysisTitle.textContent = "Column validation";
+  analysisTitle.className = "analysis-title";
+  preview.append(analysisTitle);
+  const analysisTable = document.createElement("table");
+  analysisTable.className = "analysis-table";
+  const analysisHead = document.createElement("thead");
+  const analysisHeader = document.createElement("tr");
+  ["Column", "Detected type", "Missing", "Inconsistent"].forEach((label) => {
+    const th = document.createElement("th");
+    th.textContent = label;
+    analysisHeader.append(th);
+  });
+  analysisHead.append(analysisHeader);
+  analysisTable.append(analysisHead);
+  const analysisBody = document.createElement("tbody");
+  data.columns.forEach((column) => {
+    const row = document.createElement("tr");
+    [column.name, column.inferred_type || "unknown",
+      column.missing_values ?? column.empty ?? 0,
+      column.inconsistent_values ?? 0].forEach((value) => {
+      const cell = document.createElement("td");
+      cell.textContent = value;
+      row.append(cell);
+    });
+    analysisBody.append(row);
+  });
+  analysisTable.append(analysisBody);
+  preview.append(analysisTable);
+
+  const previewTitle = document.createElement("h3");
+  previewTitle.textContent = "Data preview";
+  previewTitle.className = "analysis-title";
+  preview.append(previewTitle);
   const table = document.createElement("table");
   const head = document.createElement("thead");
   const headerRow = document.createElement("tr");
