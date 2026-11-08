@@ -1,22 +1,22 @@
 # Roadmap
 
-This roadmap describes the intended direction. Items are not considered complete until implemented and verified.
+Items are marked complete only after implementation. Planned studio cards in the interface are not functional modules.
 
 ## Phase 0 — Repository foundation
 - [x] Establish public repository and license
 - [x] Define project purpose and modular scope
 - [x] Document initial architecture and delivery principles
-- [ ] Add development environment and contribution instructions
-- [ ] Add baseline CI and test configuration
+- [x] Add development environment and local run instructions
+- [x] Add baseline CI and test configuration
 
 ## Phase 1 — Core application foundation
-- [ ] Create Python backend using FastAPI
-- [ ] Add health and version endpoints
-- [ ] Establish configuration and environment-variable handling
-- [ ] Add structured error handling and request validation
-- [ ] Create lightweight JavaScript frontend
-- [ ] Connect frontend to backend
-- [ ] Add local run instructions
+- [x] Create Python backend using FastAPI
+- [x] Add health and version endpoints
+- [x] Establish initial application configuration
+- [x] Create lightweight JavaScript frontend
+- [x] Connect frontend to backend
+- [x] Serve frontend and API from one local server
+- [x] Add initial automated tests
 
 ## Phase 2 — Document and data tools
 - [ ] Build safe file-upload and file-validation utilities
@@ -45,7 +45,7 @@ This roadmap describes the intended direction. Items are not considered complete
 - [ ] Document customization and handoff process
 
 ## Phase 6 — Portfolio readiness
-- [ ] Complete automated tests and CI
+- [ ] Complete automated tests and CI for all modules
 - [ ] Review security, privacy and dependency risks
 - [ ] Add screenshots and demonstration data
 - [ ] Publish setup and user documentation
@@ -53,4 +53,4 @@ This roadmap describes the intended direction. Items are not considered complete
 
 ## Scope rule
 
-Prioritize a small number of complete, reliable demonstrations over a large collection of unfinished features. Paid APIs and hosted services must remain optional where practical.
+Prioritize a small number of complete, reliable demonstrations over a large collection of unfinished features. Paid APIs and hosted services should remain optional where practical.
