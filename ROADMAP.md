@@ -1,6 +1,6 @@
 # Roadmap
 
-Items are marked complete only after implementation and automated verification.
+Status reflects implemented work and checks completed to date. Browser-level QA is tracked separately from backend/CI verification.
 
 ## Phase 0 — Repository foundation
 - [x] Establish public repository and license
@@ -10,7 +10,7 @@ Items are marked complete only after implementation and automated verification.
 ## Phase 1 — Core application foundation
 - [x] Create FastAPI backend and lightweight JavaScript frontend
 - [x] Add health/version endpoints and same-origin hosting
-- [x] Add automated tests
+- [x] Add automated backend tests and frontend JavaScript syntax checks
 
 ## Phase 2 — Data Studio
 - [x] CSV/XLSX upload, validation, inspection and preview
@@ -47,15 +47,16 @@ Items are marked complete only after implementation and automated verification.
 - [ ] Add reusable dashboard and internal-tool templates
 - [ ] Document client customization and handoff
 
-## Phase 7 — Portfolio readiness
-- [x] Add CI syntax checks for every frontend JavaScript module
-- [ ] Complete automated tests and CI for all modules
-- [ ] Review security, privacy and dependency risks
+## Phase 7 — Release and portfolio readiness
+- [x] Integrate all five first-version studios on the main branch
+- [x] Add backend automated tests and frontend JavaScript syntax checks to CI
+- [x] Review security boundaries and address identified XLSX archive-expansion risk
+- [x] Deploy the application to Render and verify the public homepage and health endpoint
+- [ ] Complete end-to-end browser testing of all five studios and their downloads
 - [ ] Add screenshots and synthetic demonstration data
-- [ ] Perform end-to-end browser testing
-- [ ] Publish setup, user documentation and deployment options
-- [ ] Record known limitations and versioned releases
+- [ ] Expand user documentation and client handoff examples
+- [ ] Establish versioned releases and release notes
 
 ## Scope rule
 
-Prioritize complete, reliable demonstrations over feature counts. Keep paid APIs and hosted services optional where practical.
+Prioritize complete, reliable demonstrations over feature counts. Keep paid APIs and hosted services optional where practical. Do not mark browser workflows complete until they have been exercised end to end.
