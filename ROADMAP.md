@@ -27,7 +27,8 @@ Items are marked complete only after implementation. Planned studio cards in the
 - [x] Add synthetic CSV tests
 - [x] Add initial XLSX inspection, cleanup and export support
 - [x] Add initial column type inference and missing/inconsistent-value warnings
-- [ ] Add richer data validation, type inference and analysis
+- [x] Add initial data validation, type inference and column transformations (rename, normalize, select and reorder)
+- [ ] Add richer data profiling, type conversion and analysis
 
 ## Phase 3 — Research tools
 - [ ] Create source-aware research workflow
