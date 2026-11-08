@@ -9,9 +9,11 @@
     <link rel="stylesheet" href="/styles.css" />
     <link rel="stylesheet" href="/data-studio.css" />
     <link rel="stylesheet" href="/research-studio.css" />
+    <link rel="stylesheet" href="/document-studio.css" />
     <script src="/app.js" defer></script>
     <script src="/data-studio.js" defer></script>
     <script src="/research-studio.js" defer></script>
+    <script src="/document-studio.js" defer></script>
   </head>
   <body>
     <header class="topbar">
@@ -37,7 +39,7 @@
         </div>
         <div class="studio-grid">
           <article class="studio-card"><span class="card-number">01</span><div class="card-icon">⌕</div><h3>Research Studio</h3><p>Turn source notes into structured, traceable research briefs and comparisons.</p><a class="card-state active" href="#research-studio">Available now · Open studio</a></article>
-          <article class="studio-card"><span class="card-number">02</span><div class="card-icon">▤</div><h3>Document Studio</h3><p>Extract, organize, transform and prepare documents for practical use.</p><span class="card-state">Planned module</span></article>
+          <article class="studio-card"><span class="card-number">02</span><div class="card-icon">▤</div><h3>Document Studio</h3><p>Extract text and metadata from PDF, Word and plain-text files.</p><a class="card-state active" href="#document-studio">Available now · Open studio</a></article>
           <article class="studio-card"><span class="card-number">03</span><div class="card-icon">▦</div><h3>Data Studio</h3><p>Clean, validate, reshape and analyze structured data with repeatable steps.</p><span class="card-state active">Available now</span></article>
           <article class="studio-card"><span class="card-number">04</span><div class="card-icon">↗</div><h3>Automation Studio</h3><p>Connect tools and workflows with clear logging, approvals and failure handling.</p><span class="card-state">Planned module</span></article>
           <article class="studio-card"><span class="card-number">05</span><div class="card-icon">⌘</div><h3>Development Studio</h3><p>Build focused websites, dashboards, prototypes and lightweight business tools.</p><span class="card-state">Planned module</span></article>
@@ -97,6 +99,21 @@
         </form>
         <p id="research-message" class="research-message" role="status" aria-live="polite">Your notes stay in this request and are not saved to a database.</p>
         <div id="research-report" class="research-report" hidden></div>
+      </section>
+
+      <section class="data-workbench" id="document-studio">
+        <p class="eyebrow">AVAILABLE NOW · DOCUMENT STUDIO</p>
+        <h2>Extract text and metadata from documents.</h2>
+        <p class="data-description">Upload a PDF, Word DOCX or UTF-8 TXT file. Extracted text and available metadata are shown immediately and can be downloaded as a plain-text file. Documents are processed in memory, not saved to disk.</p>
+        <form id="document-form" class="document-form">
+          <label class="document-picker">Choose PDF, DOCX or TXT
+            <input id="document-file" type="file" accept=".pdf,.docx,.txt,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain" required />
+          </label>
+          <span id="document-file-name" class="document-file-name">No file selected · 10 MB maximum</span>
+          <button class="action-button" id="extract-document" type="submit" disabled>Extract document</button>
+        </form>
+        <p id="document-message" class="document-message" role="status" aria-live="polite">Files are processed in memory. PDF limit: 100 pages.</p>
+        <div id="document-output" class="document-output" hidden></div>
       </section>
 
       <section class="principles">
