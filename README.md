@@ -11,7 +11,7 @@ The first runnable application is now in place:
 - Lightweight, responsive **JavaScript** frontend.
 - API health and version endpoints.
 - Backend tests and GitHub Actions CI.
-- **Data Studio:** CSV inspection, preview, whitespace cleanup, blank-row removal, duplicate-row removal and CSV download.
+- **Data Studio:** CSV and XLSX inspection, preview, whitespace cleanup, blank-row removal, duplicate-row removal and cleaned-file downloads.
 - One local server for both the API and browser interface.
 
 <badge color="success">Runnable foundation</badge>
@@ -26,7 +26,7 @@ The first runnable application is now in place:
 | Automation | Integrations, repeatable workflows, approvals and notifications |
 | Development | Custom websites, dashboards, prototypes and business tools |
 
-Research, Document, Automation and Development remain planned modules. Data Studio has an initial working CSV workflow.
+Research, Document, Automation and Development remain planned modules. Data Studio has an working CSV and XLSX workflows.
 
 ## Technology
 
@@ -71,8 +71,8 @@ Open **http://127.0.0.1:8000**. Interactive API documentation is at **http://127
 
 - `GET /api/health` — service health
 - `GET /api/version` — application version
-- `POST /api/data/inspect` — inspect an uploaded CSV (multipart field: `file`)
-- `POST /api/data/clean` — clean and download an uploaded CSV; accepts `trim_whitespace`, `remove_empty_rows` and `remove_duplicate_rows` query options
+- `POST /api/data/inspect` — inspect an uploaded CSV or XLSX workbook (multipart field: `file`)
+- `POST /api/data/clean` — clean and download an uploaded CSV or XLSX workbook; accepts `trim_whitespace`, `remove_empty_rows` and `remove_duplicate_rows` query options
 
 ### Run tests
 
