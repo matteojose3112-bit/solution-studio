@@ -1,7 +1,7 @@
 from fastapi.testclient import TestClient
 
 from app.main import app
-from app.services.csv_tools import CSVProcessingError, clean_table, inspect_table, parse_csv
+from app.services.csv_tools import CSVProcessingError, clean_table, inspect_table, parse_csv, transform_table
 
 client = TestClient(app)
 
@@ -94,3 +94,31 @@ def test_empty_column_is_reported_without_a_type() -> None:
     notes = inspect_table(table)["columns"][1]
     assert notes["inferred_type"] == "empty"
     assert notes["missing_values"] == 2
+
+
+def test_transform_renames_normalizes_and_reorders_selected_columns() -> None:
+    table = parse_csv(b"First Name,Order ID,City\nAda,0012,London\nBea,0013,Paris\n")
+    result = transform_table(table, rename_columns={"First Name": "Customer Name"}, normalize_headers=True, keep_columns=["city", "customer_name"])
+    assert result.headers == ["city", "customer_name"]
+    assert result.rows == [["London", "Ada"], ["Paris", "Bea"]]
+
+
+def test_transform_rejects_invalid_column_selection() -> None:
+    table = parse_csv(b"name,city\nAda,London\n")
+    for options in ({"keep_columns": ["missing"]}, {"keep_columns": ["name", "name"]}, {"rename_columns": {"city": "name"}}):
+        try:
+            transform_table(table, **options)
+            assert False, "Expected invalid transformation to be rejected"
+        except CSVProcessingError:
+            pass
+
+
+def test_transform_endpoint_exports_selected_columns() -> None:
+    response = client.post("/api/data/transform?normalize_headers=true&keep_columns=city%0Aname", files={"file": ("sample.csv", b"Name,City\nAda,London\n", "text/csv")})
+    assert response.status_code == 200
+    assert response.text == "city,name\nLondon,Ada\n"
+
+
+def test_transform_endpoint_rejects_invalid_rename_json() -> None:
+    response = client.post("/api/data/transform?rename_columns=not-json", files={"file": ("sample.csv", b"name,city\nAda,London\n", "text/csv")})
+    assert response.status_code == 422
