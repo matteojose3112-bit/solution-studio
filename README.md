@@ -6,13 +6,13 @@ Solution Studio is a practical workspace for research, document processing, data
 
 ## Current foundation
 
-- Python **FastAPI** backend and lightweight **JavaScript** frontend.
+- Python FastAPI backend and lightweight JavaScript frontend.
 - API health/version endpoints, automated backend tests and GitHub Actions CI.
 - **Research Studio:** source-linked working briefs from up to eight user-provided source notes, with key points, limitations and Markdown export.
 - **Document Studio:** in-memory text and metadata extraction from PDF, DOCX and UTF-8 TXT files, with downloadable text export.
 - **Data Studio:** CSV/XLSX inspection, validation, cleanup, column transformations and exports.
-- **Automation Studio:** compose up to eight deterministic text-processing steps, preview output, require approval, inspect execution logs and export workflow JSON.
-- One local server for both the API and browser interface.
+- **Automation Studio:** deterministic text workflows with previews, approval checkpoints, execution logs and JSON export.
+- **Development Studio:** generate a responsive static business website starter as a ZIP containing HTML, CSS and setup notes.
 
 ## The five studios
 
@@ -21,75 +21,63 @@ Solution Studio is a practical workspace for research, document processing, data
 | Research | Source-note briefs, linked references and Markdown reports |
 | Documents | PDF/DOCX/TXT text extraction, metadata and text export |
 | Data | CSV/XLSX cleanup, validation, transformations and exports |
-| Automation | Allowlisted text workflows, previews, approval checkpoints and execution logs |
-| Development | Custom websites, dashboards, prototypes and business tools — planned |
+| Automation | Allowlisted text workflows, previews, approval checkpoints and logs |
+| Development | Static business website starter generation and downloadable ZIP |
 
 ## Technology
 
-- **Python / FastAPI** — backend and processing services
-- **JavaScript** — browser interface and studio workflows
-- **openpyxl, pypdf, python-docx** — spreadsheet and document processing
-- **SQL / SQLite** — optional future structured persistence
-- **Optional integrations** — n8n, Supabase and AI model providers
+- Python / FastAPI — backend and processing services
+- JavaScript — browser interface and studio workflows
+- openpyxl, pypdf, python-docx — spreadsheet and document processing
+- Python standard library — ZIP generation and deterministic workflow utilities
+- Optional future integrations — n8n, Supabase and AI model providers
 
-Core modules are local-first. Paid APIs and hosted services are not required for the current workflows.
+All five studios have a functional first version. Core workflows are local-first and do not require paid APIs or hosted services.
 
 ## Run locally
 
 Requires Python 3.10 or newer.
 
-```powershell
-python -m venv .venv
-.venv\Scripts\Activate.ps1
-python -m pip install -r backend/requirements.txt
-uvicorn app.main:app --reload --app-dir backend
-```
+    python -m venv .venv
+    .venv\Scripts\Activate.ps1
+    python -m pip install -r backend/requirements.txt
+    uvicorn app.main:app --reload --app-dir backend
 
-Open **http://127.0.0.1:8000**. Interactive API documentation is at **http://127.0.0.1:8000/docs**.
+Open http://127.0.0.1:8000. Interactive API documentation is at http://127.0.0.1:8000/docs.
 
 ### API endpoints
 
-- `GET /api/health` — service health
-- `GET /api/version` — application version
-- `POST /api/research/report` — create a source-linked brief from a question and 1–8 source records
-- `POST /api/documents/extract` — extract text and metadata from PDF, DOCX or TXT uploads
-- `POST /api/data/inspect` — inspect an uploaded CSV/XLSX file
-- `POST /api/data/clean` — clean and export an uploaded CSV/XLSX file
-- `POST /api/data/transform` — rename, normalize, select/reorder columns and clean before export
-- `POST /api/automation/run` — preview or execute a workflow made from allowlisted steps
+- GET /api/health — service health
+- GET /api/version — application version
+- POST /api/research/report — create a source-linked brief
+- POST /api/documents/extract — extract text and metadata from PDF, DOCX or TXT
+- POST /api/data/inspect — inspect an uploaded CSV/XLSX file
+- POST /api/data/clean — clean and export an uploaded CSV/XLSX file
+- POST /api/data/transform — rename, normalize, select/reorder columns and clean before export
+- POST /api/automation/run — preview or execute an allowlisted text workflow
+- POST /api/development/generate — generate a static business website ZIP
 
-### Document safeguards
+### Safeguards and limitations
 
-- 10 MB maximum upload; PDF limited to 100 pages.
-- DOCX archive expansion limited to 25 MB.
-- Extracted output limited to 100,000 characters.
-- Password-protected PDFs and non-UTF-8 text files are not supported.
-- Files are processed in memory and are not persisted.
-
-### Automation safeguards
-
-- Maximum 20,000 input characters and eight steps per workflow.
-- Only built-in, allowlisted text actions can run; arbitrary code and shell commands are not accepted.
-- Approval is required by default. Preview and execution are stateless.
-- No third-party API calls, webhooks or notifications are performed by this initial module.
+- Document uploads: 10 MB maximum; PDF limited to 100 pages; DOCX archive expansion limited to 25 MB; extracted output limited to 100,000 characters.
+- Research Studio organizes supplied notes only; it does not automatically browse or verify sources.
+- Automation Studio accepts only built-in text actions; arbitrary code, shell commands, outbound requests and persistence are not supported.
+- Development Studio generates a static one-page starter. Custom backend features, hosting setup and advanced design still require project-specific work.
+- Uploaded files and workflow inputs are processed in memory and are not persisted.
 
 ### Run tests
 
-```bash
-pytest
-```
+    pytest
 
 ## Repository layout
 
-```text
-backend/       FastAPI routes, processing services and tests
-frontend/      Static JavaScript interface, studio modules and styles
-docs/          Architecture and project documentation
-examples/      Synthetic demonstration material
-.github/       CI workflows
-ROADMAP.md     Planned implementation phases
-CHANGELOG.md   Verified project changes
-```
+- backend/ — FastAPI routes, processing services and tests
+- frontend/ — static JavaScript interface, studio modules and styles
+- docs/ — architecture and project documentation
+- examples/ — synthetic demonstration material
+- .github/ — CI workflows
+- ROADMAP.md — planned implementation phases
+- CHANGELOG.md — verified project changes
 
 ## Principles
 
@@ -104,4 +92,4 @@ Never commit API keys, credentials, private client documents or real customer da
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+MIT. See LICENSE.
