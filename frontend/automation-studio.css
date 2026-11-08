@@ -1,0 +1,15 @@
+#automation-studio { margin: 0 0 100px; padding: 34px; border: 1px solid #ffffff1b; border-radius: 14px; background: linear-gradient(145deg, #1a293d, #142033); }
+.automation-form { display: grid; gap: 18px; margin-top: 22px; }
+.automation-form > label { display: grid; gap: 8px; color: #c2cfdd; font-size: 12px; font-weight: 650; }
+.automation-form textarea { width: 100%; border: 1px solid #ffffff25; border-radius: 7px; padding: 12px; color: #edf2f8; background: #0f1a2a; font: inherit; font-size: 13px; line-height: 1.6; }
+.workflow-steps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; padding: 0; border: 0; }
+.workflow-steps legend { margin-bottom: 10px; color: #9ce7ca; font-size: 13px; font-weight: 750; }
+.workflow-steps label { display: flex; align-items: center; gap: 9px; padding: 11px; border: 1px solid #ffffff1b; border-radius: 7px; color: #bdcbd9; font-size: 12px; }
+.workflow-steps input, .approval-toggle input { accent-color: #9ce7ca; }
+.approval-toggle { display: flex; align-items: center; gap: 10px; color: #c2cfdd; font-size: 12px; }
+.automation-message { color: #aebdce; font-size: 12px; }
+.automation-output { margin-top: 26px; padding-top: 22px; border-top: 1px solid #ffffff20; color: #c4d0df; }
+.automation-output h4 { margin: 20px 0 8px; color: #9ce7ca; }
+.workflow-status { color: #9ce7ca; font-size: 12px; font-weight: 750; }
+.workflow-result { max-height: 360px; overflow: auto; padding: 16px; border: 1px solid #ffffff1b; border-radius: 8px; background: #0e1928; color: #dce8f5; white-space: pre-wrap; overflow-wrap: anywhere; font: 12px/1.7 ui-monospace, SFMono-Regular, Consolas, monospace; }
+@media (max-width: 600px) { #automation-studio { padding: 22px; } .workflow-steps { grid-template-columns: 1fr; } }
