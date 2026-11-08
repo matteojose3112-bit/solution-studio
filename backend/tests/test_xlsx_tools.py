@@ -49,3 +49,18 @@ def test_xlsx_clean_endpoint_returns_workbook():
 def test_rejects_invalid_xlsx():
     response = client.post("/api/data/inspect", files={"file": ("broken.xlsx", b"not a workbook")})
     assert response.status_code == 422
+
+
+def test_xlsx_transform_endpoint_exports_selected_columns() -> None:
+    response = client.post(
+        "/api/data/transform?normalize_headers=true&keep_columns=city%0Aname",
+        files={"file": ("sample.xlsx", sample_xlsx())},
+    )
+    assert response.status_code == 200
+    assert response.headers["content-type"].startswith("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    workbook = load_workbook(BytesIO(response.content), data_only=True)
+    assert workbook.active["A1"].value == "city"
+    assert workbook.active["B1"].value == "name"
+    assert workbook.active["A2"].value == "Rome"
+    assert workbook.active["B2"].value == "Ada"
+    workbook.close()
