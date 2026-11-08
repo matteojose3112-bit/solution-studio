@@ -8,8 +8,10 @@
     <title>Solution Studio</title>
     <link rel="stylesheet" href="/styles.css" />
     <link rel="stylesheet" href="/data-studio.css" />
+    <link rel="stylesheet" href="/research-studio.css" />
     <script src="/app.js" defer></script>
     <script src="/data-studio.js" defer></script>
+    <script src="/research-studio.js" defer></script>
   </head>
   <body>
     <header class="topbar">
@@ -34,7 +36,7 @@
           <p>Independent modules designed to work together when a project needs them.</p>
         </div>
         <div class="studio-grid">
-          <article class="studio-card"><span class="card-number">01</span><div class="card-icon">⌕</div><h3>Research Studio</h3><p>Gather sources, compare options and turn findings into structured, traceable reports.</p><span class="card-state">Planned module</span></article>
+          <article class="studio-card"><span class="card-number">01</span><div class="card-icon">⌕</div><h3>Research Studio</h3><p>Turn source notes into structured, traceable research briefs and comparisons.</p><a class="card-state active" href="#research-studio">Available now · Open studio</a></article>
           <article class="studio-card"><span class="card-number">02</span><div class="card-icon">▤</div><h3>Document Studio</h3><p>Extract, organize, transform and prepare documents for practical use.</p><span class="card-state">Planned module</span></article>
           <article class="studio-card"><span class="card-number">03</span><div class="card-icon">▦</div><h3>Data Studio</h3><p>Clean, validate, reshape and analyze structured data with repeatable steps.</p><span class="card-state active">Available now</span></article>
           <article class="studio-card"><span class="card-number">04</span><div class="card-icon">↗</div><h3>Automation Studio</h3><p>Connect tools and workflows with clear logging, approvals and failure handling.</p><span class="card-state">Planned module</span></article>
@@ -70,6 +72,31 @@
           <div id="data-stats" class="data-stats"></div>
           <div class="data-preview" id="data-preview"></div>
         </div>
+      </section>
+
+      <section class="data-workbench" id="research-studio">
+        <p class="eyebrow">AVAILABLE NOW · RESEARCH STUDIO</p>
+        <h2>Turn source material into a useful brief.</h2>
+        <p class="data-description">Add a research question and up to eight sources. Paste the relevant notes or excerpts, then generate a structured brief with linked references, key points and review limitations. This version organizes supplied material; it does not browse or verify pages automatically.</p>
+        <form id="research-form" class="research-form">
+          <label for="research-question">Research question
+            <input id="research-question" name="question" required maxlength="500" placeholder="What are you trying to understand or compare?" />
+          </label>
+          <div id="research-sources">
+            <fieldset class="research-source">
+              <legend>Source 1</legend>
+              <label>Source title<input name="title" maxlength="200" required placeholder="Article or report title" /></label>
+              <label>Source URL<input name="url" type="url" maxlength="2000" required placeholder="https://example.com/source" /></label>
+              <label>Relevant notes or excerpt<textarea name="notes" maxlength="4000" rows="4" required placeholder="Paste the relevant findings or excerpt from this source."></textarea></label>
+            </fieldset>
+          </div>
+          <div class="research-actions">
+            <button class="action-button secondary" id="add-research-source" type="button">Add another source</button>
+            <button class="action-button" type="submit">Generate research brief</button>
+          </div>
+        </form>
+        <p id="research-message" class="research-message" role="status" aria-live="polite">Your notes stay in this request and are not saved to a database.</p>
+        <div id="research-report" class="research-report" hidden></div>
       </section>
 
       <section class="principles">

@@ -1,23 +1,20 @@
 # Changelog
 
-All notable project changes are recorded here. Only implemented and verified changes belong in this file.
+Only implemented and verified changes belong in this file.
 
 ## [Unreleased]
 
 ### Added
-- Data Studio supports CSV and XLSX upload, inspection, column statistics, inferred column types, missing/inconsistent-value warnings, preview, cleanup, explicit column renaming, snake_case header normalization, column selection/reordering and cleaned/transformed-file downloads. XLSX processing uses the first worksheet and cached formula values; formulas are not evaluated.
-- CSV/XLSX safeguards: 5 MB limit, row and column caps and unique header normalization; CSV includes UTF-8 and malformed-row validation, plus spreadsheet-formula neutralization on CSV export.
-- Automated tests for CSV and XLSX parsing, cleanup, upload endpoints, transformation validation and workbook exports.
-- FastAPI application with health and version endpoints.
-- JavaScript landing interface introducing the five planned studios.
-- Same-origin static frontend hosting through FastAPI.
-- Initial backend tests for API routes and frontend delivery.
-- GitHub Actions workflow to install dependencies and run tests.
-- Local setup and run instructions.
+- Research Studio API and browser workflow for source-linked research briefs based on user-provided source titles, URLs and notes.
+- Structured executive summary, extracted key points, source references, limitations and Markdown report download.
+- Research input validation for question/source limits, required notes, HTTP(S) links and duplicate URLs.
+- Automated service and API tests for Research Studio.
+- Data Studio CSV/XLSX inspection, validation, cleanup, column transformations and exports.
+- FastAPI application, lightweight frontend, health/version endpoints and GitHub Actions CI.
 
 ### Changed
-- Updated README and workspace guides to reflect the runnable foundation.
-- Marked repository and core application foundation tasks complete in the roadmap.
+- Updated README, roadmap and workspace interface to reflect the implemented Research and Data workflows.
 
-### Notes
-- Research, document, data, automation and development modules remain planned work.
+### Limitations
+- Research Studio organizes supplied notes only. It does not automatically browse, scrape or verify linked pages.
+- Document, Automation and Development Studios remain planned modules.
