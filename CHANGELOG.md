@@ -7,7 +7,7 @@ All notable project changes are recorded here. Only implemented and verified cha
 ### Added
 - Data Studio supports CSV and XLSX upload, inspection, column statistics, preview and cleaned-file downloads. XLSX processing uses the first worksheet and cached formula values; formulas are not evaluated.
 - CSV/XLSX safeguards: 5 MB limit, row and column caps and unique header normalization; CSV includes UTF-8 and malformed-row validation.
-- Automated tests for CSV parsing, cleanup and upload endpoints.
+- Automated tests for CSV and XLSX parsing, cleanup, upload endpoints and workbook exports.
 - FastAPI application with health and version endpoints.
 - JavaScript landing interface introducing the five planned studios.
 - Same-origin static frontend hosting through FastAPI.
