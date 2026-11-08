@@ -26,7 +26,7 @@ The first runnable application is now in place:
 | Automation | Integrations, repeatable workflows, approvals and notifications |
 | Development | Custom websites, dashboards, prototypes and business tools |
 
-Research, Document, Automation and Development remain planned modules. Data Studio has an working CSV and XLSX workflows.
+Research, Document, Automation and Development remain planned modules. Data Studio has working CSV and XLSX workflows.
 
 ## Technology
 
