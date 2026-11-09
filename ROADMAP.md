@@ -52,7 +52,7 @@ Status reflects implemented work and checks completed to date. Browser-level QA 
 - [x] Add backend automated tests and frontend JavaScript syntax checks to CI
 - [x] Review security boundaries and address identified XLSX archive-expansion risk
 - [x] Deploy the application to Render and verify the public homepage and health endpoint
-- [ ] Complete end-to-end browser testing of all five studios and their downloads
+- [ ] Complete end-to-end browser testing of all five studios and their downloads (Research, Automation and Development passed live browser checks; Data and Documents file-upload flows remain pending)
 - [ ] Add screenshots and synthetic demonstration data
 - [ ] Expand user documentation and client handoff examples
 - [ ] Establish versioned releases and release notes
