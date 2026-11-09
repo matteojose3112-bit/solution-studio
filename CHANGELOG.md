@@ -24,12 +24,12 @@ Only implemented changes and verified deployment facts are recorded here.
 - Render free-tier instances may sleep after inactivity, which can increase first-request latency.
 
 ### Verification
-- The integrated backend test suite passed 58 tests.
-- Frontend JavaScript syntax checks are included in CI.
+- The integrated backend test suite passed 58 tests, including API-level CSV upload/inspection/cleanup/export and TXT upload/extraction coverage.
+- The latest GitHub Actions CI run completed successfully: backend tests and frontend JavaScript syntax checks both passed.
 - Public homepage and health endpoint smoke checks passed.
 - Live browser regression checks passed for Research report generation/Markdown export, Automation preview/approval/execution and output controls, and Development website ZIP generation.
 - The live header now correctly reports “API connected”; all five studio sections and the Automation approval guidance were verified after deployment.
-- Data and Documents file-upload/extraction/download flows still require manual file-picker verification; synthetic CSV and TXT fixtures are available in `examples/`.
+- Data and Documents API-level upload/processing behavior is covered by passing automated tests. Live browser file-picker upload/download checks remain pending because the browser automation session cannot attach downloaded local files to file inputs; synthetic CSV and TXT fixtures are available in `examples/`.
 
 ### Known limitations
 - Research Studio organizes supplied notes only; automatic web research and independent source verification are not implemented.
