@@ -20,7 +20,7 @@ async function connectToApi() {
       throw new Error("API health check did not pass");
     }
 
-    statusLabel.textContent = "Local API connected";
+    statusLabel.textContent = "API connected";
     statusDot.classList.add("online");
     versionLabel.textContent = `· v${version.version}`;
   } catch {
