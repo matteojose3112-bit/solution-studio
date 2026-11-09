@@ -1,0 +1,7 @@
+SOLUTION STUDIO QA SAMPLE
+
+This is a synthetic plain-text document for testing the Document Studio extraction workflow.
+
+Reference: QA-DOC-001
+Status: Test fixture
+No personal or confidential information is included.
