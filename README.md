@@ -80,7 +80,7 @@ Run the backend test suite from the repository root:
 pytest
 ```
 
-The integrated backend suite has passed 58 tests. CI also checks frontend JavaScript syntax. Browser-level end-to-end testing of every studio remains a follow-up task.
+The integrated backend suite has passed 58 tests. CI also checks frontend JavaScript syntax. Live browser regression checks have exercised Research, Automation and Development, including report generation, approval/execution and website ZIP generation. Data and Documents still need real file-picker upload and download checks. Synthetic fixtures are provided in `examples/`.
 
 ## Repository structure
 
