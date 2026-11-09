@@ -4,3 +4,5 @@ customer_id,name,city,amount,status
 003,Alice Smith,Toronto,120.50,active
 004,  Carol Lee  ,Medellin,,pending
 005,,Bogota,42.00,active
+
+001,  Alice Smith  ,Toronto,120.50,active
