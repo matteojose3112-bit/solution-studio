@@ -138,7 +138,7 @@
             <label><input type="checkbox" name="workflow-step" value="lowercase" /> Convert to lowercase</label>
             <label><input type="checkbox" name="workflow-step" value="count_words" /> Count words</label>
           </fieldset>
-          <label class="approval-toggle"><input id="automation-approval" type="checkbox" checked /> Require approval before completing the workflow</label>
+          <div class="approval-control"><label class="approval-toggle"><input id="automation-approval" type="checkbox" checked /> Require approval before completing the workflow</label><p class="field-hint">When enabled, the first run is a preview. Review the output and step log, then select “Approve &amp; run” to complete it.</p></div>
           <button class="action-button" type="submit">Preview workflow</button>
         </form>
         <p id="automation-message" class="automation-message" role="status" aria-live="polite">Runs are stateless. Your input is not saved to a database.</p>
