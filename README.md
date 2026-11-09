@@ -80,7 +80,7 @@ Run the backend test suite from the repository root:
 pytest
 ```
 
-The integrated backend suite has passed 58 tests, including API-level CSV upload/inspection/cleanup/export and TXT upload/extraction coverage. CI also checks frontend JavaScript syntax. Live browser regression checks have exercised Research, Automation and Development, including report generation, approval/execution and website ZIP generation. Data and Documents still need browser file-picker upload and download checks; the browser automation environment cannot attach its downloaded fixtures to file inputs. Synthetic fixtures are provided in `examples/`.
+The integrated backend suite has passed 58 tests, including API-level CSV upload/inspection/cleanup/export and TXT upload/extraction coverage. The latest documentation commits also passed GitHub Actions CI, which checks backend tests and frontend JavaScript syntax. Live browser regression checks passed for Research (report generation and Markdown export), Automation (preview, approval, execution and output controls), and Development (website ZIP generation). Data and Documents processing is covered by API tests, but live browser file-picker upload/download checks remain outstanding because the browser automation environment cannot attach its downloaded fixtures to file inputs. Synthetic CSV and TXT fixtures are provided in `examples/`.
 
 ## Repository structure
 
