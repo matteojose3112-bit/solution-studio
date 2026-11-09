@@ -1,6 +1,6 @@
 # Roadmap
 
-Status reflects implemented work and checks completed to date. Browser-level QA is tracked separately from backend/CI verification.
+Status reflects implemented work and checks completed to date. The 58-test backend suite and frontend JavaScript syntax checks pass in GitHub Actions. Browser-level QA is tracked separately from backend/CI verification.
 
 ## Phase 0 — Repository foundation
 - [x] Establish public repository and license
@@ -55,9 +55,10 @@ Status reflects implemented work and checks completed to date. Browser-level QA 
 - [x] Add backend automated tests and frontend JavaScript syntax checks to CI
 - [x] Review security boundaries and address identified XLSX archive-expansion risk
 - [x] Deploy the application to Render and verify the public homepage and health endpoint
-- [ ] Complete end-to-end browser testing of all five studios and their downloads (Research, Automation and Development passed live browser checks; Data and Documents file-upload flows remain pending)
-- [ ] Add screenshots and synthetic demonstration data
-- [ ] Expand user documentation and client handoff examples
+- [ ] Complete browser file-picker upload/download QA for Data and Documents (their API upload/processing paths are covered by passing automated tests; Research, Automation and Development passed live browser checks)
+- [x] Add synthetic CSV and TXT demonstration fixtures
+- [x] Document setup, API endpoints, safeguards, test coverage and known limitations
+- [ ] Add polished screenshots and client handoff examples
 - [ ] Establish versioned releases and release notes
 
 ## Scope rule
