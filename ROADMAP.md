@@ -18,6 +18,8 @@ Status reflects implemented work and checks completed to date. Browser-level QA 
 - [x] Clean whitespace, blank rows and duplicates
 - [x] Rename, normalize, select and reorder columns
 - [x] Export cleaned/transformed CSV and XLSX
+- [x] Cover CSV upload, inspection, cleanup and export through API-level tests
+- [ ] Complete live browser file-picker upload/download QA
 - [ ] Add richer profiling, explicit type conversion and analysis
 
 ## Phase 3 — Research Studio
@@ -30,7 +32,8 @@ Status reflects implemented work and checks completed to date. Browser-level QA 
 ## Phase 4 — Document Studio
 - [x] Extract text and metadata from PDF, DOCX and TXT
 - [x] Add upload size, PDF page, DOCX expansion and output-length limits
-- [x] Add downloadable text export and automated tests
+- [x] Add downloadable text export and automated API tests for TXT extraction
+- [ ] Complete live browser file-picker upload/download QA
 - [ ] Add PDF/DOCX conversion and structured transformations
 
 ## Phase 5 — Automation Studio
