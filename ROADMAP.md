@@ -61,6 +61,7 @@ Status reflects implemented work and checks completed to date. The 58-test backe
 - [x] Document setup, API endpoints, safeguards, test coverage and known limitations
 - [ ] Add polished screenshots and client handoff examples
 - [x] Publish the v0.1.0 initial public demo as a GitHub pre-release with scope and QA notes
+- [x] Add Solution Studio to the Aster portfolio with a dedicated case study and verified repository/demo links
 - [ ] Publish stable v1.0 after remaining manual browser file-picker QA is complete
 
 ## Scope rule
