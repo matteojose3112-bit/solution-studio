@@ -8,7 +8,7 @@ Solution Studio brings together five focused studios for research, document proc
 
 ## Live demo
 
-The application is deployed as a public Render web service. The health endpoint is available at [/api/health](https://solution-studio-secb.onrender.com/api/health).
+The application is deployed as a public Render web service. The initial public demo is tagged as [v0.1.0 pre-release](https://github.com/matteojose3112-bit/solution-studio/releases/tag/v0.1.0); it is not a stable v1.0 release. The health endpoint is available at [/api/health](https://solution-studio-secb.onrender.com/api/health).
 
 - Python FastAPI backend and lightweight JavaScript frontend
 - Five functional first-version studios
