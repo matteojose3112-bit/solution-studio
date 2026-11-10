@@ -1,6 +1,6 @@
 # Roadmap
 
-Status reflects implemented work and checks completed to date. The 58-test backend suite and frontend JavaScript syntax checks pass in GitHub Actions. Browser-level QA is tracked separately from backend/CI verification.
+Status reflects implemented work and checks completed to date. The 58-test backend suite and frontend JavaScript syntax checks have passed in GitHub Actions. The 2026-11-10 production smoke test confirmed page/API health and passed Research, Automation and Development workflows. Browser-level file-picker QA remains separate from API/CI verification.
 
 ## Phase 0 — Repository foundation
 - [x] Establish public repository and license
@@ -55,7 +55,8 @@ Status reflects implemented work and checks completed to date. The 58-test backe
 - [x] Add backend automated tests and frontend JavaScript syntax checks to CI
 - [x] Review security boundaries and address identified XLSX archive-expansion risk
 - [x] Deploy the application to Render and verify the public homepage and health endpoint
-- [ ] Complete browser file-picker upload/download QA for Data and Documents (their API upload/processing paths are covered by passing automated tests; Research, Automation and Development passed live browser checks)
+- [x] Re-run production browser smoke test: API connected, all five studios rendered, no visible errors; Research, Automation and Development workflows passed (2026-11-10)
+- [ ] Complete browser file-picker upload/download QA for Data and Documents (their API upload/processing paths are covered by passing automated tests; upload controls were inspected, but actual file attachment is not supported in the browser automation environment)
 - [x] Add synthetic CSV and TXT demonstration fixtures
 - [x] Document setup, API endpoints, safeguards, test coverage and known limitations
 - [ ] Add polished screenshots and client handoff examples
