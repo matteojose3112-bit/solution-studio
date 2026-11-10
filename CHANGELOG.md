@@ -4,6 +4,14 @@ Only implemented changes and verified deployment facts are recorded here.
 
 ## [Unreleased]
 
+### Verification update — 2026-11-10
+- Re-ran the public production smoke test: Render homepage loaded, API-connected indicator was visible, all five studios rendered and no visible application errors appeared.
+- Passed live Research report generation and Markdown download-control check.
+- Passed live Automation preview, approval and execution; output and workflow JSON controls were present.
+- Passed live Development website ZIP generation using synthetic business details.
+- Inspected Data and Documents upload controls and limits. Actual browser file-picker uploads were not attempted because this browser automation environment cannot attach local fixtures; API-level CSV and TXT upload coverage remains covered by the existing passing backend tests.
+- Confirmed the latest documentation deployment is live on Render. The most recent available backend CI evidence remains the previously recorded passing 58-test suite and JavaScript syntax check; no new CI run was returned for the documentation-only head commit.
+
 ### Added
 - Five functional first-version studios: Research, Documents, Data, Automation and Development.
 - Research briefs from up to eight user-provided source notes, with key points, linked references, limitations and Markdown export.
