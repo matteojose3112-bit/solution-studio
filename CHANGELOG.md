@@ -4,6 +4,10 @@ Only implemented changes and verified deployment facts are recorded here.
 
 ## [Unreleased]
 
+### Release
+- Published [Solution Studio v0.1.0 — Initial Public Demo](https://github.com/matteojose3112-bit/solution-studio/releases/tag/v0.1.0) as a GitHub pre-release targeting `main`.
+- Release notes describe all five studios, the public Render demo, prior passing backend/CI checks, successful live smoke-tested workflows, and the outstanding Data/Document browser file-picker QA. This is explicitly a pre-release, not stable v1.0.
+
 ### Verification update — 2026-11-10
 - Re-ran the public production smoke test: Render homepage loaded, API-connected indicator was visible, all five studios rendered and no visible application errors appeared.
 - Passed live Research report generation and Markdown download-control check.
