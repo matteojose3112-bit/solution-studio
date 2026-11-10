@@ -60,7 +60,8 @@ Status reflects implemented work and checks completed to date. The 58-test backe
 - [x] Add synthetic CSV and TXT demonstration fixtures
 - [x] Document setup, API endpoints, safeguards, test coverage and known limitations
 - [ ] Add polished screenshots and client handoff examples
-- [ ] Establish versioned releases and release notes
+- [x] Publish the v0.1.0 initial public demo as a GitHub pre-release with scope and QA notes
+- [ ] Publish stable v1.0 after remaining manual browser file-picker QA is complete
 
 ## Scope rule
 
