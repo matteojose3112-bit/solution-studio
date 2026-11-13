@@ -1,6 +1,6 @@
 # Roadmap
 
-Status reflects implemented work and checks completed to date. The 58-test backend suite and frontend JavaScript syntax checks have passed in GitHub Actions. The 2026-11-10 production smoke test confirmed page/API health and passed Research, Automation and Development workflows. The public homepage and health endpoint were rechecked successfully on 2026-11-12. Browser-level file-picker QA remains separate from API/CI verification and is tracked in [issue #7](https://github.com/matteojose3112-bit/solution-studio/issues/7).
+Status reflects implemented work and checks completed to date. The 58-test backend suite and frontend JavaScript syntax checks have passed in GitHub Actions. The latest production browser review confirmed the API-connected state, all five studio sections, clear labels and no visible layout/control defects. Research, Automation and Development workflows passed with synthetic inputs. Browser-level file-picker QA remains separate from API/CI verification and is tracked in [issue #7](https://github.com/matteojose3112-bit/solution-studio/issues/7).
 
 ## Phase 0 — Repository foundation
 - [x] Establish public repository and license
@@ -27,12 +27,14 @@ Status reflects implemented work and checks completed to date. The 58-test backe
 - [x] Generate executive summaries, key points and linked references
 - [x] Explain verification limits and uncertainty
 - [x] Export reports as Markdown
+- [x] Pass live production browser report-generation and Markdown-download-control checks
 - [ ] Add optional web research and AI-assisted synthesis adapters
 
 ## Phase 4 — Document Studio
 - [x] Extract text and metadata from PDF, DOCX and TXT
 - [x] Add upload size, PDF page, DOCX expansion and output-length limits
 - [x] Add downloadable text export and automated API tests for TXT extraction
+- [x] Verify production upload controls, accepted file types and stated limits
 - [ ] Complete live browser file-picker upload/download QA ([issue #7](https://github.com/matteojose3112-bit/solution-studio/issues/7))
 - [ ] Add PDF/DOCX conversion and structured transformations
 
@@ -40,6 +42,7 @@ Status reflects implemented work and checks completed to date. The 58-test backe
 - [x] Define allowlisted workflow steps and ordered execution
 - [x] Add preview, approval checkpoint and execution logs
 - [x] Export workflow definitions and output
+- [x] Pass live production browser preview and approval workflow checks
 - [ ] Add optional webhook/API connectors and n8n integration
 - [ ] Add persistent schedules, notifications and retry queues
 
@@ -47,6 +50,7 @@ Status reflects implemented work and checks completed to date. The 58-test backe
 - [x] Generate responsive static business website starters
 - [x] Package HTML, CSS and setup notes as a downloadable ZIP
 - [x] Validate inputs and escape user-supplied content
+- [x] Pass live production browser ZIP-generation test with synthetic details; success state displayed and download triggered
 - [ ] Add reusable dashboard and internal-tool templates
 - [ ] Document client customization and handoff
 
@@ -55,8 +59,9 @@ Status reflects implemented work and checks completed to date. The 58-test backe
 - [x] Add backend automated tests and frontend JavaScript syntax checks to CI
 - [x] Review security boundaries and address identified XLSX archive-expansion risk
 - [x] Deploy the application to Render and verify the public homepage and health endpoint
-- [x] Re-run production browser smoke test: API connected, all five studios rendered, no visible errors; Research, Automation and Development workflows passed (2026-11-10)
-- [ ] Complete browser file-picker upload/download QA for Data and Documents (API upload/processing paths are covered by passing automated tests; upload controls were inspected, but actual file attachment is not supported in the browser automation environment) — [issue #7](https://github.com/matteojose3112-bit/solution-studio/issues/7)
+- [x] Verify production browser layout, API-connected state, five studio sections, labels and visible controls; no visible defects found
+- [x] Pass Research, Automation and Development live browser workflows using synthetic data
+- [ ] Complete browser file-picker upload/download QA for Data and Documents (API upload/processing paths are covered by passing automated tests; actual browser file attachment remains unverified in the automation environment) — [issue #7](https://github.com/matteojose3112-bit/solution-studio)
 - [x] Add synthetic CSV and TXT demonstration fixtures
 - [x] Document setup, API endpoints, safeguards, test coverage and known limitations
 - [ ] Add polished screenshots and client handoff examples
