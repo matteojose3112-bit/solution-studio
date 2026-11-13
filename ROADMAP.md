@@ -1,6 +1,6 @@
 # Roadmap
 
-Status reflects implemented work and checks completed to date. The 58-test backend suite and frontend JavaScript syntax checks have passed in GitHub Actions. The 2026-11-10 production smoke test confirmed page/API health and passed Research, Automation and Development workflows. Browser-level file-picker QA remains separate from API/CI verification.
+Status reflects implemented work and checks completed to date. The 58-test backend suite and frontend JavaScript syntax checks have passed in GitHub Actions. The 2026-11-10 production smoke test confirmed page/API health and passed Research, Automation and Development workflows. The public homepage and health endpoint were rechecked successfully on 2026-11-12. Browser-level file-picker QA remains separate from API/CI verification and is tracked in [issue #7](https://github.com/matteojose3112-bit/solution-studio/issues/7).
 
 ## Phase 0 — Repository foundation
 - [x] Establish public repository and license
@@ -19,7 +19,7 @@ Status reflects implemented work and checks completed to date. The 58-test backe
 - [x] Rename, normalize, select and reorder columns
 - [x] Export cleaned/transformed CSV and XLSX
 - [x] Cover CSV upload, inspection, cleanup and export through API-level tests
-- [ ] Complete live browser file-picker upload/download QA
+- [ ] Complete live browser file-picker upload/download QA ([issue #7](https://github.com/matteojose3112-bit/solution-studio/issues/7))
 - [ ] Add richer profiling, explicit type conversion and analysis
 
 ## Phase 3 — Research Studio
@@ -33,7 +33,7 @@ Status reflects implemented work and checks completed to date. The 58-test backe
 - [x] Extract text and metadata from PDF, DOCX and TXT
 - [x] Add upload size, PDF page, DOCX expansion and output-length limits
 - [x] Add downloadable text export and automated API tests for TXT extraction
-- [ ] Complete live browser file-picker upload/download QA
+- [ ] Complete live browser file-picker upload/download QA ([issue #7](https://github.com/matteojose3112-bit/solution-studio/issues/7))
 - [ ] Add PDF/DOCX conversion and structured transformations
 
 ## Phase 5 — Automation Studio
@@ -56,7 +56,7 @@ Status reflects implemented work and checks completed to date. The 58-test backe
 - [x] Review security boundaries and address identified XLSX archive-expansion risk
 - [x] Deploy the application to Render and verify the public homepage and health endpoint
 - [x] Re-run production browser smoke test: API connected, all five studios rendered, no visible errors; Research, Automation and Development workflows passed (2026-11-10)
-- [ ] Complete browser file-picker upload/download QA for Data and Documents (their API upload/processing paths are covered by passing automated tests; upload controls were inspected, but actual file attachment is not supported in the browser automation environment)
+- [ ] Complete browser file-picker upload/download QA for Data and Documents (API upload/processing paths are covered by passing automated tests; upload controls were inspected, but actual file attachment is not supported in the browser automation environment) — [issue #7](https://github.com/matteojose3112-bit/solution-studio/issues/7)
 - [x] Add synthetic CSV and TXT demonstration fixtures
 - [x] Document setup, API endpoints, safeguards, test coverage and known limitations
 - [ ] Add polished screenshots and client handoff examples
