@@ -1,7 +1,7 @@
 from fastapi.testclient import TestClient
 
 from app.main import app
-from app.services.csv_tools import CSVProcessingError, clean_table, inspect_table, parse_csv, transform_table
+from app.services.csv_tools import CSVProcessingError, MAX_ROWS, clean_table, inspect_table, parse_csv, transform_table
 
 client = TestClient(app)
 
@@ -152,3 +152,12 @@ def test_csv_export_neutralizes_spreadsheet_formula_cells() -> None:
     assert "\"'=HYPERLINK" in exported
     assert "'@SUM(1,1)" in exported
     assert "'-2" in exported
+
+
+def test_csv_row_limit_is_enforced_during_streaming_parse() -> None:
+    content = b"value\\n" + b"x\\n" * (MAX_ROWS + 1)
+    try:
+        parse_csv(content)
+        assert False, "Expected the configured row limit to be enforced"
+    except CSVProcessingError as exc:
+        assert f"{MAX_ROWS:,}-row limit" in str(exc)
