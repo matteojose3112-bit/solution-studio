@@ -1,9 +1,10 @@
 from io import BytesIO
+from zipfile import ZIP_DEFLATED, ZipFile
 
 import pytest
 from docx import Document
 
-from app.services.document_tools import DocumentProcessingError, extract_document
+from app.services.document_tools import MAX_DOCX_ARCHIVE_ENTRIES, DocumentProcessingError, extract_document
 
 
 def make_docx() -> bytes:
@@ -46,3 +47,12 @@ def test_rejects_unsupported_or_invalid_documents(filename, content):
 def test_rejects_empty_documents():
     with pytest.raises(DocumentProcessingError, match="empty"):
         extract_document("empty.txt", b"")
+
+
+def test_rejects_docx_with_excessive_archive_entries():
+    archive = BytesIO()
+    with ZipFile(archive, "w", compression=ZIP_DEFLATED) as bundle:
+        for index in range(MAX_DOCX_ARCHIVE_ENTRIES + 1):
+            bundle.writestr(f"entry-{index}.xml", b"")
+    with pytest.raises(DocumentProcessingError, match="too many archive entries"):
+        extract_document("many-entries.docx", archive.getvalue())
