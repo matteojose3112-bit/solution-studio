@@ -43,15 +43,15 @@ def parse_csv(content: bytes) -> CSVTable:
     except csv.Error:
         delimiter = ","
 
+    reader = csv.reader(io.StringIO(text, newline=""), delimiter=delimiter, strict=True)
     try:
-        reader = csv.reader(io.StringIO(text, newline=""), delimiter=delimiter, strict=True)
-        raw_rows = list(reader)
+        raw_headers = next(reader)
+    except StopIteration as exc:
+        raise CSVProcessingError("The CSV does not contain a header row.") from exc
     except csv.Error as exc:
-        raise CSVProcessingError(f"Could not parse CSV: {exc}") from exc
+        raise CSVProcessingError(f"Could not parse CSV header: {exc}") from exc
 
-    if not raw_rows:
-        raise CSVProcessingError("The CSV does not contain a header row.")
-    headers = [cell.strip() for cell in raw_rows[0]]
+    headers = [cell.strip() for cell in raw_headers]
     if not headers or all(not header for header in headers):
         raise CSVProcessingError("The CSV header row is blank.")
     if len(headers) > MAX_COLUMNS:
@@ -65,14 +65,17 @@ def parse_csv(content: bytes) -> CSVTable:
         normalized_headers.append(base if seen[base] == 1 else f"{base}_{seen[base]}")
 
     rows: list[list[str]] = []
-    for line_number, row in enumerate(raw_rows[1:], start=2):
-        if len(row) > len(normalized_headers):
-            raise CSVProcessingError(
-                f"Row {line_number} has more cells than the header ({len(row)} vs {len(normalized_headers)})."
-            )
-        rows.append(row + [""] * (len(normalized_headers) - len(row)))
-        if len(rows) > MAX_ROWS:
-            raise CSVProcessingError(f"CSV exceeds the {MAX_ROWS:,}-row limit.")
+    try:
+        for line_number, row in enumerate(reader, start=2):
+            if len(rows) >= MAX_ROWS:
+                raise CSVProcessingError(f"CSV exceeds the {MAX_ROWS:,}-row limit.")
+            if len(row) > len(normalized_headers):
+                raise CSVProcessingError(
+                    f"Row {line_number} has more cells than the header ({len(row)} vs {len(normalized_headers)})."
+                )
+            rows.append(row + [""] * (len(normalized_headers) - len(row)))
+    except csv.Error as exc:
+        raise CSVProcessingError(f"Could not parse CSV: {exc}") from exc
 
     return CSVTable(normalized_headers, rows, delimiter)
 
