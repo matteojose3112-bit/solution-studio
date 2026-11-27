@@ -110,3 +110,8 @@ Never commit API keys, credentials, private client documents or real customer da
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+
+## Documentation maintenance — 2026-11-27
+
+The public Render demo remains a v0.1.0 pre-release, not stable v1.0. Research, Automation and Development live browser workflows have been exercised successfully with synthetic inputs. Data and Documents API-level upload/processing are covered by backend tests, but real browser file-picker upload/download remains unverified and is tracked in [issue #7](https://github.com/matteojose3112-bit/solution-studio/issues/7). Uploaded inputs are processed in memory; no persistent client files or workflows are claimed.
