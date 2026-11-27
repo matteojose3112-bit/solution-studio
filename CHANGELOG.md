@@ -1,5 +1,11 @@
 # Changelog
 
+## Documentation maintenance — 2026-11-27
+
+- Reconciled README and roadmap around the v0.1.0 pre-release status and remaining manual browser file-picker QA for Data and Documents (issue #7).
+- Preserved the distinction between passing API-level upload tests and unverified browser file-picker upload/download behavior.
+- No application code, Render configuration, or deployment was changed.
+
 Only implemented changes and verified deployment facts are recorded here.
 
 ## [Unreleased]
