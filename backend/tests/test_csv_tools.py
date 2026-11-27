@@ -155,7 +155,7 @@ def test_csv_export_neutralizes_spreadsheet_formula_cells() -> None:
 
 
 def test_csv_row_limit_is_enforced_during_streaming_parse() -> None:
-    content = b"value\\n" + b"x\\n" * (MAX_ROWS + 1)
+    content = b"value\n" + b"x\n" * (MAX_ROWS + 1)
     try:
         parse_csv(content)
         assert False, "Expected the configured row limit to be enforced"
