@@ -9,6 +9,7 @@ from pypdf import PdfReader
 MAX_DOCUMENT_BYTES = 10 * 1024 * 1024
 MAX_PDF_PAGES = 100
 MAX_DOCX_UNCOMPRESSED_BYTES = 25 * 1024 * 1024
+MAX_DOCX_ARCHIVE_ENTRIES = 1_000
 MAX_TEXT_CHARACTERS = 100_000
 
 
@@ -60,7 +61,12 @@ def extract_document(filename: str, content: bytes) -> dict:
     else:
         try:
             with ZipFile(BytesIO(content)) as archive:
-                if sum(item.file_size for item in archive.infolist()) > MAX_DOCX_UNCOMPRESSED_BYTES:
+                entries = archive.infolist()
+                if len(entries) > MAX_DOCX_ARCHIVE_ENTRIES:
+                    raise DocumentProcessingError(
+                        f"DOCX contains too many archive entries (limit: {MAX_DOCX_ARCHIVE_ENTRIES:,})."
+                    )
+                if sum(item.file_size for item in entries) > MAX_DOCX_UNCOMPRESSED_BYTES:
                     raise DocumentProcessingError("DOCX expands beyond the 25 MB processing limit.")
             document = Document(BytesIO(content))
             parts = [paragraph.text for paragraph in document.paragraphs if paragraph.text.strip()]
