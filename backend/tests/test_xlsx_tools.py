@@ -1,9 +1,12 @@
 from io import BytesIO
+
+import pytest
+from zipfile import ZIP_DEFLATED, ZipFile
 from openpyxl import Workbook, load_workbook
 from fastapi.testclient import TestClient
 from app.main import app
-from app.services.xlsx_tools import parse_xlsx, serialize_xlsx
-from app.services.csv_tools import clean_table, inspect_table
+from app.services.xlsx_tools import MAX_XLSX_UNCOMPRESSED_BYTES, parse_xlsx, serialize_xlsx
+from app.services.csv_tools import CSVProcessingError, MAX_ROWS, clean_table, inspect_table
 client = TestClient(app)
 
 def sample_xlsx():
@@ -91,3 +94,15 @@ def test_xlsx_rejects_archive_expansion_over_limit() -> None:
         assert False, "Expected oversized archive expansion to be rejected"
     except Exception as exc:
         assert "25 MB" in str(exc)
+
+
+def test_xlsx_row_limit_is_enforced():
+    workbook = Workbook(write_only=True)
+    sheet = workbook.create_sheet("Data")
+    sheet.append(["value"])
+    for _ in range(MAX_ROWS + 1):
+        sheet.append(["x"])
+    output = BytesIO()
+    workbook.save(output)
+    with pytest.raises(CSVProcessingError, match=f"{MAX_ROWS:,}-row limit"):
+        parse_xlsx(output.getvalue())

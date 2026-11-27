@@ -59,10 +59,10 @@ def parse_xlsx(content: bytes) -> CSVTable:
             normalized.append(base if seen[base] == 1 else f"{base}_{seen[base]}")
         rows = []
         for row_number, raw in enumerate(iterator, 2):
-            values = list(raw[:len(headers)]) + [None] * max(0, len(headers) - len(raw))
-            rows.append([_cell_text(v) for v in values])
             if row_number - 1 > MAX_ROWS:
                 raise CSVProcessingError(f"XLSX exceeds the {MAX_ROWS:,}-row limit.")
+            values = list(raw[:len(headers)]) + [None] * max(0, len(headers) - len(raw))
+            rows.append([_cell_text(v) for v in values])
         return CSVTable(normalized, rows, ",")
     finally:
         workbook.close()
