@@ -72,3 +72,8 @@ Status reflects implemented work and checks completed to date. The 58-test backe
 ## Scope rule
 
 Prioritize complete, reliable demonstrations over feature counts. Keep paid APIs and hosted services optional where practical. Do not mark browser workflows complete until they have been exercised end to end.
+
+
+## Maintenance review — 2026-11-27
+
+Keep the Data/Document browser file-picker QA issue open until actual browser upload and download are tested. API-level test coverage is not a substitute for file-picker validation. The v0.1.0 tag is a GitHub pre-release; stable v1.0 remains gated on the outstanding manual QA and release review. No new browser verification is claimed by this documentation pass.
